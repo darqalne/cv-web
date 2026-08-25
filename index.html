@@ -1,0 +1,1422 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ahmet Kağan Türkmen — İnşaat &amp; Maden Mühendisi</title>
+<meta name="description" content="Ahmet Kağan Türkmen — İzmir Dokuz Eylül Üniversitesi İnşaat Mühendisliği ve Maden Mühendisliği (ÇAP) öğrencisi. Emniyetli, ekonomik ve estetik mühendislik.">
+<link rel="icon" href="docs/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          cream: '#F6F0E3',
+          soft: '#EBE1CB',
+          surface: '#FFFDF6',
+          ink: '#241A36',
+          violet: '#6B46C4',
+          violetdeep: '#4E2F98',
+          stone: '#6E6656',
+        },
+        fontFamily: {
+          display: ['"Alex Brush"', 'cursive'],
+          sans: ['"IBM Plex Sans"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+          mono: ['"IBM Plex Mono"', 'ui-monospace', 'monospace'],
+        },
+        boxShadow: {
+          card: '0 1px 0 0 rgba(36,26,54,0.03), 0 20px 44px -22px rgba(107,70,196,0.28)',
+          glow: '0 10px 28px -8px rgba(107,70,196,0.45), 0 0 0 1px rgba(107,70,196,0.12)',
+        },
+      },
+    },
+  };
+</script>
+<style>
+  :root { color-scheme: light; }
+  html { scroll-behavior: smooth; }
+  body { background-color: #F6F0E3; }
+
+  .grain::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.02;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+
+  @keyframes float-y {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-14px); }
+  }
+  .float-anim { animation: float-y 6s ease-in-out infinite; }
+
+  /* Topographic contour-line margins — hand-picked isohypse artwork (docs/izohips-left.png,
+     docs/izohips-right.png; source: docs/izohips_layout.html) filling the empty gutters
+     outside the max-w-6xl content column on wide viewports. position:absolute with no
+     positioned ancestor + top:0;bottom:0 spans the full scrollable document height (not just
+     the viewport), so the art scrolls past with the page instead of staying pinned. It's a
+     finite drawing, so it tiles down that height (background-size:100% auto keeps the tile's
+     width locked to the panel and its aspect ratio intact, repeat-y stacks copies) rather than
+     being stretched to fit, which is what caused the earlier "squeezed" look. The inner edge
+     is a mask fade, never a hard clipped rectangle, so the art dissolves into the page instead
+     of ending in a straight cut line. */
+  .topo-edge {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: clamp(96px, calc((100vw - 1152px) * 0.32), 480px);
+    z-index: 1;
+    pointer-events: none;
+    mix-blend-mode: multiply;
+    opacity: 0.22;
+    background-size: 100% auto;
+    background-repeat: repeat-y;
+    display: none;
+  }
+  .topo-edge-left {
+    left: 0;
+    background-image: url('docs/izohips-left.png');
+    background-position: top left;
+    -webkit-mask-image: linear-gradient(to right, #000 0%, #000 20%, transparent 100%);
+    mask-image: linear-gradient(to right, #000 0%, #000 20%, transparent 100%);
+  }
+  .topo-edge-right {
+    right: 0;
+    background-image: url('docs/izohips-right.png');
+    background-position: top right;
+    -webkit-mask-image: linear-gradient(to left, #000 0%, #000 20%, transparent 100%);
+    mask-image: linear-gradient(to left, #000 0%, #000 20%, transparent 100%);
+  }
+  @media (min-width: 1250px) {
+    .topo-edge { display: block; }
+  }
+
+  @keyframes chevron-bounce {
+    0%, 100% { transform: translateY(0px); opacity: 0.5; }
+    50% { transform: translateY(6px); opacity: 1; }
+  }
+  .chevron-anim { animation: chevron-bounce 2s ease-in-out infinite; }
+
+  @keyframes hint-slide {
+    0%, 100% { transform: translateX(0px); opacity: 0.55; }
+    50% { transform: translateX(5px); opacity: 1; }
+  }
+  .hint-anim { animation: hint-slide 1.8s ease-in-out infinite; }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal.is-visible { opacity: 1; transform: translateY(0); }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .float-anim, .chevron-anim, .hint-anim { animation: none; }
+    .reveal { opacity: 1; transform: none; transition: none; }
+  }
+
+  section[id], footer[id] { scroll-margin-top: 96px; }
+
+  .nav-link { color: rgba(36,26,54,0.55); }
+  .nav-link:hover { color: #241A36; }
+  .nav-link.active { color: #241A36; font-weight: 500; }
+  .nav-link.active .nav-dot { opacity: 1; transform: scale(1); }
+
+  .eyebrow { color: #6B46C4; font-weight: 600; font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase; }
+
+  .stamp { font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.06em; }
+
+  /* Scroll-built emblem — layer positions/sizes are exact percentages of the square stage,
+     taken directly from docs/scrollanimation1.html. Do not eyeball these; they're measured. */
+  #logo-stagewrap { position: absolute; inset: 0; display: grid; place-items: center; }
+  #logo-anim-wrap { position: relative; }
+  #logo-anim-wrap .layer { position: absolute; opacity: 0; }
+  /* The lamp + its glow must stay above the pickaxe/sledgehammer layers that are drawn
+     after them in the DOM — otherwise the lamp ends up fully hidden under the sledgehammer
+     head once both reach full opacity near the end of the scroll. */
+  #logo-anim-wrap .layer#ly-isik { z-index: 2; }
+  #logo-anim-wrap .layer#ly-lamba { z-index: 3; }
+  /* The lamp + light-ray art is black/transparent line-work, drawn straight over the solid-black
+     tunnel mouth (ly-galeri behind ly-giris) — without a halo, black outline on black rock has
+     zero contrast and the lamp reads as an empty gap. These glows sit behind their layer's own
+     image (painted first) and fade in with it since they inherit the same layer opacity that
+     render() animates. */
+  /* .layer has no explicit height (it's sized by its content), so ANY percentage top/height here
+     resolves against an indeterminate containing block and is unreliable (collapses/misplaces).
+     inset:0 matches the glow to the layer's own (content-determined, therefore definite) box,
+     then transform:scale() enlarges it from the center — scale only depends on the element's
+     own resolved size, so it sidesteps the percentage-on-auto-height problem entirely. */
+  .lamp-glow {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle, rgba(246,240,227,0.95) 0%, rgba(246,240,227,0.65) 42%, rgba(246,240,227,0) 72%);
+    filter: blur(3px);
+  }
+  .lamp-glow--wide { transform: scale(1.5) translateY(10%); }
+  #ly-lamba .lamp-glow { transform: scale(3.2) translateY(-8%); }
+  #logo-anim-wrap .layer .mv { display: block; will-change: transform; }
+  #logo-anim-wrap .layer img { display: block; width: 100%; height: auto; }
+
+  /* Signature mark (header + footer) */
+  .signature { font-family: 'Alex Brush', cursive; }
+  .signature-swash { stroke: currentColor; }
+
+  .hero-scrim {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(ellipse 60% 54% at 50% 46%, rgba(246,240,227,0.94) 0%, rgba(246,240,227,0.62) 45%, rgba(246,240,227,0) 74%);
+  }
+
+  /* Horizontal scroll rows (skills & software) */
+  .hscroll { scrollbar-width: none; -ms-overflow-style: none; cursor: grab; }
+  .hscroll::-webkit-scrollbar { display: none; }
+  .hscroll.dragging { cursor: grabbing; scroll-snap-type: none; }
+  .skill-card { transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1); }
+  .skill-card:hover { transform: translateY(-4px); }
+  .skill-card:active { transform: translateY(-1px); }
+
+  /* Scroll-linked sideways drift on the CV skill rows */
+  .cv-row-track { will-change: transform; }
+
+  /* Elegant hairline divider — gradient fade with a small diamond accent */
+  .divider-line { position: relative; height: 1px; background: linear-gradient(to right, transparent, rgba(36,26,54,0.16) 18%, rgba(107,70,196,0.4) 50%, rgba(36,26,54,0.16) 82%, transparent); }
+  .divider-line::before { content: ""; position: absolute; left: 50%; top: 50%; width: 7px; height: 7px; transform: translate(-50%, -50%) rotate(45deg); background: rgba(107,70,196,0.55); border-radius: 1.5px; }
+  .divider-line--sub { background: linear-gradient(to right, transparent, rgba(36,26,54,0.12) 10%, rgba(36,26,54,0.12) 90%, transparent); }
+  .divider-line--sub::before { width: 5px; height: 5px; background: rgba(110,102,86,0.45); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cv-row-track { transform: none !important; }
+  }
+
+  /* Poster modal: the poster image defaults to a "fit whole page on screen" size, can be
+     toggled into a larger pannable view, and (on precise-pointer devices) shows a magnifier
+     lens on hover — the lens samples the same high-resolution source, so detail stays crisp
+     even though the on-screen image is scaled well below its native resolution. */
+  .poster-img {
+    display: block;
+    max-width: 92vw;
+    max-height: 74vh;
+    width: auto;
+    height: auto;
+    cursor: zoom-in;
+  }
+  #poster-frame.is-zoomed { overflow: auto; max-width: 92vw; max-height: 74vh; cursor: grab; }
+  #poster-frame.is-zoomed.is-dragging { cursor: grabbing; }
+  #poster-frame.is-zoomed .poster-img { max-width: none; max-height: none; cursor: grab; }
+  #poster-frame::-webkit-scrollbar { height: 10px; width: 10px; }
+  #poster-frame::-webkit-scrollbar-thumb { background: rgba(246,240,227,0.25); border-radius: 999px; }
+
+  .poster-lens {
+    position: absolute;
+    /* Without an explicit inset, an absolutely-positioned box with no offset yet set falls
+       back to its static (in-flow) position — i.e. right after the image — which silently
+       inflates the frame's scrollable area by the lens's own size before the first mousemove
+       ever repositions it. Pin it at 0,0 up front so it never touches normal flow. */
+    top: 0;
+    left: 0;
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    border: 2px solid rgba(246,240,227,0.9);
+    box-shadow: 0 12px 34px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(0,0,0,0.2);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+    background-repeat: no-repeat;
+    background-color: #0e0a17;
+    z-index: 5;
+  }
+  @media (max-width: 640px), (hover: none) {
+    .poster-lens { display: none; }
+  }
+
+  /* Rotating dark-purple glow ring, used on contact buttons (interactive) and the footer
+     signature card (ambient only — .card-glow intentionally has no :hover rule). */
+  @property --glow-angle {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+  }
+  .btn-glow, .card-glow { position: relative; }
+  .btn-glow::before, .btn-glow::after,
+  .card-glow::before, .card-glow::after {
+    content: "";
+    position: absolute;
+    border-radius: inherit;
+    pointer-events: none;
+    animation: glow-rotate 3.6s linear infinite;
+  }
+  .btn-glow::before, .card-glow::before {
+    inset: -3px;
+    padding: 3px;
+    background: conic-gradient(from var(--glow-angle), transparent 0deg, transparent 250deg, rgba(78,47,152,0.9) 300deg, rgba(167,139,250,0.95) 330deg, rgba(78,47,152,0.9) 350deg, transparent 360deg);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    mask-composite: exclude;
+    filter: blur(2.5px);
+    opacity: 0.8;
+    z-index: -1;
+  }
+  .btn-glow::after, .card-glow::after {
+    inset: -10px;
+    background: conic-gradient(from var(--glow-angle), transparent 0deg, transparent 245deg, rgba(107,70,196,0.5) 310deg, rgba(78,47,152,0.55) 340deg, transparent 360deg);
+    filter: blur(14px);
+    opacity: 0.55;
+    z-index: -2;
+  }
+  .btn-glow:hover::before { opacity: 1; filter: blur(3px); }
+  .btn-glow:hover::after { opacity: 0.8; filter: blur(16px); }
+  @keyframes glow-rotate {
+    to { --glow-angle: 360deg; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .btn-glow::before, .btn-glow::after,
+    .card-glow::before, .card-glow::after { animation: none; }
+  }
+</style>
+</head>
+<body class="bg-cream text-ink font-sans antialiased grain relative">
+
+<!-- Scroll-built emblem backdrop: assembles piece by piece as the page scrolls, fully formed by the footer.
+     Layer positions, sizes and clip-paths below are taken verbatim from docs/scrollanimation1.html
+     (the reference build) — do not adjust by eye, they are measured percentages of a square stage. -->
+<div id="site-backdrop" class="fixed inset-0 z-[1] overflow-hidden pointer-events-none" aria-hidden="true">
+  <div class="absolute inset-0 bg-cream"></div>
+  <div id="logo-stagewrap">
+    <div id="logo-anim-wrap" style="--S:min(75vw,75vh); --u:calc(var(--S) / 1000); width:var(--S); height:var(--S); opacity:0.16; mix-blend-mode:multiply; filter: drop-shadow(0 0 50px rgba(107,70,196,0.25));">
+
+      <div class="layer" id="ly-cember" style="left:11.000%;top:10.850%;width:78.000%;">
+        <div class="mv"><img src="docs/anim/cember.png" alt=""></div>
+      </div>
+
+      <div class="layer" id="ly-sol" style="left:11.000%;top:34.550%;width:20.380%;clip-path:ellipse(187.44% 71.34% at 191.36% 27.92%);">
+        <div class="mv"><img src="docs/anim/sol.png" alt=""></div>
+      </div>
+
+      <div class="layer" id="ly-sag" style="left:68.620%;top:34.550%;width:20.380%;clip-path:ellipse(187.44% 71.34% at -91.36% 27.92%);">
+        <div class="mv"><img src="docs/anim/sag.png" alt=""></div>
+      </div>
+
+      <div class="layer" id="ly-yan" style="left:28.700%;top:24.900%;width:42.000%;clip-path:ellipse(90.95% 60.57% at 50.71% 39.00%);">
+        <div class="mv"><img src="docs/anim/yan.png" alt=""></div>
+      </div>
+
+      <div class="layer" id="ly-tek" style="left:28.700%;top:24.900%;width:42.000%;clip-path:ellipse(90.95% 60.57% at 50.71% 39.00%);">
+        <div class="mv"><img src="docs/anim/tek.png" alt=""></div>
+      </div>
+
+      <div class="layer" id="ly-kaya" style="left:25.500%;top:55.380%;width:49.000%;clip-path:ellipse(77.96% 91.52% at 50.00% -14.09%);">
+        <div class="mv"><img src="docs/anim/kaya.png" alt=""></div>
+      </div>
+
+      <div class="layer" id="ly-galeri" style="left:35.750%;top:62.300%;width:28.500%;clip-path:ellipse(134.04% 156.67% at 50.00% -52.50%);">
+        <div class="mv"><img src="docs/anim/galeri.png" alt=""></div>
+      </div>
+
+      <div class="layer" id="ly-giris" style="left:35.750%;top:62.300%;width:28.500%;clip-path:ellipse(134.04% 156.67% at 50.00% -52.50%);">
+        <div class="mv"><img src="docs/anim/giris.png" alt=""></div>
+      </div>
+
+      <div class="layer" id="ly-isik" style="left:35.750%;top:62.300%;width:28.500%;">
+        <div class="lamp-glow lamp-glow--wide" aria-hidden="true"></div>
+        <div class="mv"><img src="docs/anim/isik.png" alt=""></div>
+      </div>
+
+      <div class="layer" id="ly-lamba" style="left:46.300%;top:70.000%;width:7.400%;">
+        <div class="lamp-glow" aria-hidden="true"></div>
+        <div class="mv"><img src="docs/anim/lamba.png" alt=""></div>
+      </div>
+
+      <div class="layer" id="ly-kazma" style="left:12.800%;top:61.800%;width:40.000%;">
+        <div class="mv"><img src="docs/anim/kazma.png" alt=""></div>
+      </div>
+
+      <div class="layer" id="ly-balyoz" style="left:48.600%;top:64.000%;width:38.500%;">
+        <div class="mv"><img src="docs/anim/balyoz.png" alt=""></div>
+      </div>
+
+      <div class="layer" id="ly-baret" style="left:34.500%;top:0.640%;width:31.000%;opacity:1;">
+        <div class="mv"><img src="docs/anim/baret.png" alt=""></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Topographic contour margins — static isohypse artwork, see docs/izohips_layout.html -->
+<div class="topo-edge topo-edge-left" aria-hidden="true"></div>
+<div class="topo-edge topo-edge-right" aria-hidden="true"></div>
+
+<!-- Fixed navigation — signature mark left, nav links right -->
+<header id="site-header" class="fixed top-0 inset-x-0 z-50 bg-cream/88 backdrop-blur border-b border-ink/10">
+  <div class="max-w-6xl mx-auto px-6 h-20 relative">
+    <div class="hidden md:flex items-center justify-between h-full">
+      <a href="#top" class="group flex flex-col leading-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet/70 rounded-sm">
+        <span class="signature text-[1.85rem] text-ink group-hover:text-violet transition-colors">Ahmet Kağan Türkmen</span>
+        <svg class="signature-swash -mt-1 w-36 h-2.5 text-violet/55 group-hover:text-violet transition-colors" viewBox="0 0 150 10" fill="none" aria-hidden="true"><path d="M2 6c17-5 30 3 48-1s28-6 45-1 33 4 53-2" stroke-width="1.3" stroke-linecap="round"/></svg>
+      </a>
+
+      <nav class="flex items-center gap-7 text-sm">
+        <a href="#hakkimda" class="nav-link relative flex items-center gap-1.5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet/70 rounded-sm px-1"><span class="nav-dot w-1 h-1 rounded-full bg-violet opacity-0 scale-0 transition-all"></span>Hakkımda</a>
+        <a href="#cv" class="nav-link relative flex items-center gap-1.5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet/70 rounded-sm px-1"><span class="nav-dot w-1 h-1 rounded-full bg-violet opacity-0 scale-0 transition-all"></span>CV</a>
+        <a href="#deneyim" class="nav-link relative flex items-center gap-1.5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet/70 rounded-sm px-1"><span class="nav-dot w-1 h-1 rounded-full bg-violet opacity-0 scale-0 transition-all"></span>Deneyim</a>
+        <a href="#projeler" class="nav-link relative flex items-center gap-1.5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet/70 rounded-sm px-1"><span class="nav-dot w-1 h-1 rounded-full bg-violet opacity-0 scale-0 transition-all"></span>Projeler</a>
+        <a href="#iletisim" class="btn-glow text-sm font-medium bg-violet text-cream px-4 py-2 rounded-full hover:bg-violetdeep transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet/70 focus-visible:ring-offset-2 focus-visible:ring-offset-cream">İletişim</a>
+      </nav>
+    </div>
+
+    <div class="flex md:hidden items-center h-full relative">
+      <a href="#top" class="flex flex-col leading-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet/70 rounded-sm">
+        <span class="signature text-xl text-ink">Ahmet Kağan Türkmen</span>
+        <svg class="signature-swash -mt-0.5 w-20 h-2 text-violet/55" viewBox="0 0 150 10" fill="none" aria-hidden="true"><path d="M2 6c17-5 30 3 48-1s28-6 45-1 33 4 53-2" stroke-width="1.3" stroke-linecap="round"/></svg>
+      </a>
+      <button id="menu-btn" aria-label="Menüyü aç" aria-expanded="false" aria-controls="mobile-menu" class="absolute right-0 text-ink p-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet/70 rounded-sm">
+        <svg id="menu-icon-open" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5" /></svg>
+        <svg id="menu-icon-close" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="mobile-menu" class="md:hidden hidden border-t border-ink/10 bg-cream">
+    <nav class="flex flex-col px-6 py-4 gap-1 text-base">
+      <a href="#hakkimda" class="mobile-nav-link py-3 text-ink/60 hover:text-ink transition-colors border-b border-ink/8">Hakkımda</a>
+      <a href="#cv" class="mobile-nav-link py-3 text-ink/60 hover:text-ink transition-colors border-b border-ink/8">Eğitim &amp; Yetkinlik</a>
+      <a href="#deneyim" class="mobile-nav-link py-3 text-ink/60 hover:text-ink transition-colors border-b border-ink/8">Deneyim</a>
+      <a href="#projeler" class="mobile-nav-link py-3 text-ink/60 hover:text-ink transition-colors border-b border-ink/8">Projeler</a>
+      <a href="#referanslar" class="mobile-nav-link py-3 text-ink/60 hover:text-ink transition-colors border-b border-ink/8">Referanslar</a>
+      <a href="#iletisim" class="mobile-nav-link py-3 text-violet font-medium">İletişim</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section id="top" class="relative z-10 min-h-screen flex items-center overflow-hidden pt-20">
+  <div class="hero-scrim" aria-hidden="true"></div>
+  <div class="relative max-w-3xl mx-auto px-6 py-24 flex flex-col items-center text-center w-full">
+    <h1 class="leading-[0.95]">
+      <span class="block font-sans font-medium text-ink/55 text-lg md:text-xl mb-3">Merhaba, ben</span>
+      <span class="font-display text-6xl sm:text-7xl md:text-8xl text-ink block">Ahmet Kağan</span>
+      <span class="font-display text-6xl sm:text-7xl md:text-8xl text-violet block -mt-3 md:-mt-5">Türkmen</span>
+    </h1>
+
+    <p class="mt-7 text-ink/70 text-sm md:text-base font-medium tracking-wide">
+      İnşaat Mühendisliği &nbsp;&middot;&nbsp; Maden Mühendisliği (ÇAP)
+    </p>
+
+    <p class="mt-6 text-ink/65 text-base md:text-lg leading-relaxed max-w-xl">
+      Emniyetli, ekonomik ve estetik tasarım anlayışıyla çalışan bir mühendislik öğrencisiyim. İzmir Dokuz Eylül Üniversitesi'nde İnşaat Mühendisliği okuyor, Çift Anadal kapsamında Maden Mühendisliği eğitimi alıyorum.
+    </p>
+
+    <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
+      <a href="#projeler" class="inline-flex items-center gap-2 bg-violet text-cream font-medium px-7 py-3.5 rounded-full shadow-glow hover:bg-violetdeep transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet/70 focus-visible:ring-offset-2 focus-visible:ring-offset-cream">
+        Projelerimi İncele
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
+      </a>
+      <a href="#iletisim" class="btn-glow inline-flex items-center gap-2 border border-ink/20 text-ink px-7 py-3.5 rounded-full hover:border-ink/45 hover:bg-surface transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet/70">
+        İletişime Geç
+      </a>
+    </div>
+
+    <div class="mt-14 flex items-center gap-5 text-xs text-ink/45 uppercase tracking-widest">
+      <span>İzmir, Türkiye</span>
+      <span class="w-1 h-1 rounded-full bg-ink/25"></span>
+      <span>DEÜ &middot; 2026</span>
+    </div>
+  </div>
+
+  <a href="#hakkimda" class="hidden sm:flex absolute bottom-8 left-1/2 -translate-x-1/2 flex-col items-center gap-2 text-ink/45 hover:text-ink transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet/70 rounded-sm">
+    <span class="text-xs uppercase tracking-[0.2em]">Aşağı Kaydır</span>
+    <svg class="chevron-anim h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" /></svg>
+  </a>
+</section>
+
+<div class="relative z-10"><div class="max-w-6xl mx-auto px-6"><div class="divider-line" aria-hidden="true"></div></div></div>
+
+<!-- HAKKIMDA -->
+<section id="hakkimda" class="relative z-10 py-28 md:py-40 bg-cream/92">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="grid md:grid-cols-[1.3fr_1fr] gap-14 md:gap-16">
+      <div class="reveal">
+        <p class="eyebrow mb-4">Hakkımda</p>
+        <h2 class="font-sans font-bold text-3xl md:text-5xl tracking-tight text-ink mb-7">Sahada öğrenen, çizim masasında tasarlayan bir mühendis adayı.</h2>
+        <p class="text-ink/65 text-lg leading-[1.8]">
+          İzmir Dokuz Eylül Üniversitesi İnşaat Mühendisliği ve Çift Anadal Programı (ÇAP) kapsamında Maden Mühendisliği bölümü öğrencisiyim.
+        </p>
+        <p class="mt-5 text-ink/65 text-lg leading-[1.8]">
+          Mühendislik ve tasarım programlarına ilgili; <span class="text-ink font-semibold">emniyetli, ekonomik ve estetik</span> tasarım odaklı bir anlayışa sahibim. Sahada edindiğim deneyimi, dijital modelleme ve analiz araçlarıyla birleştirerek uygulanabilir mühendislik çözümleri üretmeyi hedefliyorum.
+        </p>
+      </div>
+
+      <div class="reveal rounded-2xl bg-surface shadow-card border border-ink/8 overflow-hidden self-start">
+        <dl class="divide-y divide-ink/8">
+          <div class="grid grid-cols-[auto_1fr] gap-4 px-6 py-4">
+            <dt class="text-xs uppercase tracking-wider text-ink/40 pt-0.5">Ad Soyad</dt>
+            <dd class="text-ink text-sm font-medium">Ahmet Kağan Türkmen</dd>
+          </div>
+          <div class="grid grid-cols-[auto_1fr] gap-4 px-6 py-4">
+            <dt class="text-xs uppercase tracking-wider text-ink/40 pt-0.5">Bölüm</dt>
+            <dd class="text-ink text-sm font-medium">İnşaat Müh. &middot; Maden Müh. (ÇAP)</dd>
+          </div>
+          <div class="grid grid-cols-[auto_1fr] gap-4 px-6 py-4">
+            <dt class="text-xs uppercase tracking-wider text-ink/40 pt-0.5">Üniversite</dt>
+            <dd class="text-ink text-sm font-medium">Dokuz Eylül Üniversitesi</dd>
+          </div>
+          <div class="grid grid-cols-[auto_1fr] gap-4 px-6 py-4">
+            <dt class="text-xs uppercase tracking-wider text-ink/40 pt-0.5">Konum</dt>
+            <dd class="text-ink text-sm font-medium">İzmir, Türkiye</dd>
+          </div>
+          <div class="grid grid-cols-[auto_1fr] gap-4 px-6 py-4">
+            <dt class="text-xs uppercase tracking-wider text-ink/40 pt-0.5">Dil</dt>
+            <dd class="text-ink text-sm font-medium">İngilizce (A2)</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="relative z-10"><div class="max-w-6xl mx-auto px-6"><div class="divider-line" aria-hidden="true"></div></div></div>
+
+<!-- CV: EĞİTİM & YETKİNLİK -->
+<section id="cv" class="relative z-10 py-28 md:py-40 bg-soft/92 overflow-x-hidden">
+  <div class="max-w-6xl mx-auto px-6">
+    <p class="reveal eyebrow mb-4">Eğitim &amp; Yetkinlik</p>
+    <h2 class="reveal font-sans font-bold text-3xl md:text-5xl tracking-tight text-ink mb-5">Eğitim &amp; Yetkinlikler</h2>
+    <p class="reveal text-ink/65 max-w-2xl mb-16 text-lg leading-relaxed">İki mühendislik disiplininin eş zamanlı yürütüldüğü akademik program ve bu programı destekleyen yazılım/teknik beceriler.</p>
+
+    <div class="grid md:grid-cols-2 gap-6 mb-24">
+      <div class="reveal rounded-2xl bg-surface shadow-card border border-ink/8 p-8">
+        <span class="text-stone text-xs font-semibold uppercase tracking-[0.16em]">Ana Dal</span>
+        <h3 class="text-xl md:text-2xl font-semibold text-ink mt-3">İnşaat Mühendisliği</h3>
+        <p class="text-ink/55 text-sm mt-2">İzmir Dokuz Eylül Üniversitesi</p>
+        <p class="text-ink/55 text-sm mt-4 leading-relaxed">Yapısal analiz, betonarme tasarım ve deprem mühendisliği odaklı lisans eğitimi.</p>
+      </div>
+      <div class="reveal rounded-2xl bg-surface shadow-card border border-ink/8 p-8">
+        <span class="text-violet text-xs font-semibold uppercase tracking-[0.16em]">Çift Anadal (ÇAP)</span>
+        <h3 class="text-xl md:text-2xl font-semibold text-ink mt-3">Maden Mühendisliği</h3>
+        <p class="text-ink/55 text-sm mt-2">İzmir Dokuz Eylül Üniversitesi</p>
+        <p class="text-ink/55 text-sm mt-4 leading-relaxed">Açık işletme planlaması, şev stabilitesi ve saha güvenliği konularında eş zamanlı eğitim.</p>
+      </div>
+    </div>
+
+    <div class="reveal flex flex-wrap items-end justify-between gap-3 mb-10">
+      <h3 class="text-xl md:text-2xl font-semibold text-ink">Beceriler &amp; Yazılımlar</h3>
+      <span class="hidden sm:inline-flex items-center gap-2 text-xs text-ink/40 uppercase tracking-widest">
+        Sürükleyerek kaydırın
+        <svg class="hint-anim h-3.5 w-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
+      </span>
+    </div>
+
+    <div class="space-y-10 w-full md:w-[min(70vw,100%)] mx-auto">
+      <div class="reveal cv-row" data-parallax="1">
+        <p class="text-xs uppercase tracking-wider text-stone mb-4 font-semibold text-center md:text-left">Temel Mühendislik Yazılımları</p>
+        <div class="cv-row-track relative">
+          <div class="hscroll flex justify-center gap-5 overflow-x-auto snap-x snap-mandatory pb-2 w-full">
+            <div class="skill-card snap-start flex-none w-48 rounded-2xl bg-violet text-cream p-5 shadow-card">
+              <span class="block text-base font-semibold">AutoCAD</span>
+              <span class="block text-xs text-cream/70 mt-1">2D/3D Çizim</span>
+            </div>
+            <div class="skill-card snap-start flex-none w-48 rounded-2xl bg-violet text-cream p-5 shadow-card">
+              <span class="block text-base font-semibold">ETABS</span>
+              <span class="block text-xs text-cream/70 mt-1">Yapısal Analiz</span>
+            </div>
+            <div class="skill-card snap-start flex-none w-48 rounded-2xl bg-violet text-cream p-5 shadow-card">
+              <span class="block text-base font-semibold">SAP2000</span>
+              <span class="block text-xs text-cream/70 mt-1">Yapısal Analiz</span>
+            </div>
+            <div class="skill-card snap-start flex-none w-48 rounded-2xl bg-violet text-cream p-5 shadow-card">
+              <span class="block text-base font-semibold">Surpac</span>
+              <span class="block text-xs text-cream/70 mt-1">Maden Modelleme</span>
+            </div>
+          </div>
+          <div class="pointer-events-none absolute inset-y-0 right-0 w-14 transition-opacity duration-300" style="background:linear-gradient(to left, #EBE1CB, transparent);" aria-hidden="true"></div>
+        </div>
+      </div>
+
+      <div class="divider-line divider-line--sub" aria-hidden="true"></div>
+
+      <div class="reveal cv-row" data-parallax="-1">
+        <p class="text-xs uppercase tracking-wider text-ink/45 mb-4 font-semibold text-center md:text-left">Mühendislik &amp; Tasarım</p>
+        <div class="cv-row-track relative">
+          <div class="hscroll flex justify-center gap-5 overflow-x-auto snap-x snap-mandatory pb-2 w-full">
+            <div class="skill-card snap-start flex-none w-48 rounded-2xl bg-surface border border-ink/10 p-5 shadow-card">
+              <span class="block text-base font-semibold text-ink">Ansys</span>
+              <span class="block text-xs text-ink/50 mt-1">FEM Analizi</span>
+            </div>
+            <div class="skill-card snap-start flex-none w-48 rounded-2xl bg-surface border border-ink/10 p-5 shadow-card">
+              <span class="block text-base font-semibold text-ink">ideCAD</span>
+              <span class="block text-xs text-ink/50 mt-1">Betonarme Tasarım</span>
+            </div>
+            <div class="skill-card snap-start flex-none w-48 rounded-2xl bg-surface border border-ink/10 p-5 shadow-card">
+              <span class="block text-base font-semibold text-ink">Revit</span>
+              <span class="block text-xs text-ink/50 mt-1">BIM Modelleme</span>
+            </div>
+            <div class="skill-card snap-start flex-none w-48 rounded-2xl bg-surface border border-ink/10 p-5 shadow-card">
+              <span class="block text-base font-semibold text-ink">Micromine</span>
+              <span class="block text-xs text-ink/50 mt-1">Maden Planlama</span>
+            </div>
+            <div class="skill-card snap-start flex-none w-48 rounded-2xl bg-surface border border-ink/10 p-5 shadow-card">
+              <span class="block text-base font-semibold text-ink">Surfer</span>
+              <span class="block text-xs text-ink/50 mt-1">Kontur &amp; Yüzey</span>
+            </div>
+          </div>
+          <div class="pointer-events-none absolute inset-y-0 right-0 w-14 transition-opacity duration-300" style="background:linear-gradient(to left, #EBE1CB, transparent);" aria-hidden="true"></div>
+        </div>
+      </div>
+
+      <div class="divider-line divider-line--sub" aria-hidden="true"></div>
+
+      <div class="reveal cv-row" data-parallax="1">
+        <p class="text-xs uppercase tracking-wider text-ink/45 mb-4 font-semibold text-center md:text-left">Modelleme, Render &amp; Tasarım</p>
+        <div class="cv-row-track relative">
+          <div class="hscroll flex justify-center gap-5 overflow-x-auto snap-x snap-mandatory pb-2 w-full">
+            <div class="skill-card snap-start flex-none w-48 rounded-2xl bg-surface border border-ink/10 p-5 shadow-card">
+              <span class="block text-base font-semibold text-ink">Blender</span>
+              <span class="block text-xs text-ink/50 mt-1">3D Modelleme</span>
+            </div>
+            <div class="skill-card snap-start flex-none w-48 rounded-2xl bg-surface border border-ink/10 p-5 shadow-card">
+              <span class="block text-base font-semibold text-ink">Unreal Engine 5</span>
+              <span class="block text-xs text-ink/50 mt-1">Gerçek Zamanlı Render</span>
+            </div>
+            <div class="skill-card snap-start flex-none w-48 rounded-2xl bg-surface border border-ink/10 p-5 shadow-card">
+              <span class="block text-base font-semibold text-ink">Profesyonel Çizim</span>
+              <span class="block text-xs text-ink/50 mt-1">El ile Teknik Çizim</span>
+            </div>
+            <div class="skill-card snap-start flex-none w-48 rounded-2xl bg-surface border border-ink/10 p-5 shadow-card">
+              <span class="block text-base font-semibold text-ink">Dijital Tasarım</span>
+              <span class="block text-xs text-ink/50 mt-1">Arayüz (UI) Tasarımı</span>
+            </div>
+          </div>
+          <div class="pointer-events-none absolute inset-y-0 right-0 w-14 transition-opacity duration-300" style="background:linear-gradient(to left, #EBE1CB, transparent);" aria-hidden="true"></div>
+        </div>
+      </div>
+
+      <div class="divider-line divider-line--sub" aria-hidden="true"></div>
+
+      <div class="reveal">
+        <p class="text-xs uppercase tracking-wider text-ink/45 mb-4 font-semibold text-center md:text-left">Ofis Araçları</p>
+        <div class="relative">
+          <div class="flex gap-5 w-full">
+            <div class="skill-card flex-1 rounded-2xl bg-surface border border-ink/10 p-5 shadow-card text-center md:text-left">
+              <span class="block text-base font-semibold text-ink">Word</span>
+              <span class="block text-xs text-ink/50 mt-1">Doküman</span>
+            </div>
+            <div class="skill-card flex-1 rounded-2xl bg-surface border border-ink/10 p-5 shadow-card text-center md:text-left">
+              <span class="block text-base font-semibold text-ink">Excel</span>
+              <span class="block text-xs text-ink/50 mt-1">Hesap Tablosu</span>
+            </div>
+            <div class="skill-card flex-1 rounded-2xl bg-surface border border-ink/10 p-5 shadow-card text-center md:text-left">
+              <span class="block text-base font-semibold text-ink">PowerPoint</span>
+              <span class="block text-xs text-ink/50 mt-1">Sunum</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="relative z-10"><div class="max-w-6xl mx-auto px-6"><div class="divider-line" aria-hidden="true"></div></div></div>
+
+<!-- DENEYIM -->
+<section id="deneyim" class="relative z-10 py-28 md:py-40 bg-cream/92">
+  <div class="max-w-6xl mx-auto px-6">
+    <p class="reveal eyebrow mb-4">Staj Deneyimi</p>
+    <h2 class="reveal font-sans font-bold text-3xl md:text-5xl tracking-tight text-ink mb-16">Saha &amp; Staj Deneyimi</h2>
+
+    <div class="grid md:grid-cols-2 gap-x-12 gap-y-16">
+      <div>
+        <h3 class="reveal text-sm font-semibold uppercase tracking-[0.16em] text-stone mb-7 pb-3 border-b border-stone/25">İnşaat Stajları</h3>
+        <ol class="space-y-9 border-l border-ink/12 pl-6">
+          <li class="reveal relative">
+            <span class="absolute -left-[27px] top-1 w-2.5 h-2.5 rounded-full bg-stone ring-4 ring-cream"></span>
+            <p class="stamp text-xs text-ink/45 uppercase tracking-wider">Ağustos 2023 &middot; 18 gün</p>
+            <p class="text-ink font-semibold mt-1.5">YAPITPLUS <span class="text-ink/55 font-normal">— Folkart NOVA</span></p>
+            <p class="text-ink/55 text-sm mt-1">Kaba işleri üstlenici firma şantiye stajı.</p>
+          </li>
+          <li class="reveal relative">
+            <span class="absolute -left-[27px] top-1 w-2.5 h-2.5 rounded-full bg-stone ring-4 ring-cream"></span>
+            <p class="stamp text-xs text-ink/45 uppercase tracking-wider">Temmuz 2024 &middot; 10 gün</p>
+            <p class="text-ink font-semibold mt-1.5">DÜLGER İNŞAAT <span class="text-ink/55 font-normal">— ESBAŞ</span></p>
+            <p class="text-ink/55 text-sm mt-1">ESBAŞ Precast Fabrika Projesi şantiye stajı.</p>
+          </li>
+          <li class="reveal relative">
+            <span class="absolute -left-[27px] top-1 w-2.5 h-2.5 rounded-full bg-stone ring-4 ring-cream"></span>
+            <p class="stamp text-xs text-ink/45 uppercase tracking-wider">Ağustos 2024 &middot; 12 gün</p>
+            <p class="text-ink font-semibold mt-1.5">ENKA <span class="text-ink/55 font-normal">— Kırklareli Elektrik Santrali</span></p>
+            <p class="text-ink/55 text-sm mt-1">850 MW Doğal Gaz Kombine Çevrim Santrali Projesi şantiye stajı.</p>
+          </li>
+          <li class="reveal relative">
+            <span class="absolute -left-[27px] top-1 w-2.5 h-2.5 rounded-full bg-stone ring-4 ring-cream"></span>
+            <p class="stamp text-xs text-ink/45 uppercase tracking-wider">Temmuz 2025 &middot; 15 gün</p>
+            <p class="text-ink font-semibold mt-1.5">EPSILON Proje</p>
+            <p class="text-ink/55 text-sm mt-1">Yüksek katlı ve villa tipi binanın modelleme ve proje yürütme ofis stajı.</p>
+          </li>
+        </ol>
+      </div>
+
+      <div>
+        <h3 class="reveal text-sm font-semibold uppercase tracking-[0.16em] text-violet mb-7 pb-3 border-b border-violet/25">Maden Stajları</h3>
+        <ol class="space-y-9 border-l border-ink/12 pl-6">
+          <li class="reveal relative">
+            <span class="absolute -left-[27px] top-1 w-2.5 h-2.5 rounded-full bg-violet ring-4 ring-cream"></span>
+            <div class="flex flex-wrap items-center gap-2">
+              <p class="stamp text-xs text-ink/45 uppercase tracking-wider">Temmuz&ndash;Ağustos 2026 &middot; 25 gün</p>
+              <span class="text-[0.65rem] font-semibold uppercase tracking-widest bg-violet/12 text-violet px-2.5 py-0.5 rounded-full">Şu An</span>
+            </div>
+            <p class="text-ink font-semibold mt-1.5">TÜMAD <span class="text-ink/55 font-normal">— Lapseki Altın Madeni</span></p>
+            <p class="text-ink/55 text-sm mt-1">Yeraltı maden stajı.</p>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="relative z-10"><div class="max-w-6xl mx-auto px-6"><div class="divider-line" aria-hidden="true"></div></div></div>
+
+<!-- PROJELER -->
+<section id="projeler" class="relative z-10 py-28 md:py-40 bg-soft/92">
+  <div class="max-w-6xl mx-auto px-6">
+    <p class="reveal eyebrow mb-4">Projeler &amp; Akademik Çalışmalar</p>
+    <h2 class="reveal font-sans font-bold text-3xl md:text-5xl tracking-tight text-ink mb-16">Projeler &amp; Tez Çalışmaları</h2>
+
+    <div class="space-y-8">
+      <!-- Yapisal Project -->
+      <div class="reveal poster-card group rounded-2xl bg-surface shadow-card border border-ink/8 overflow-hidden cursor-pointer transition-shadow hover:shadow-glow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet/70" role="button" tabindex="0" data-poster-trigger="insaat" aria-haspopup="dialog" aria-label="6 Katlı Betonarme Ofis Binası posterini büyük boyutta görüntüle">
+        <div class="grid md:grid-cols-[1fr_auto] gap-8 p-8 md:p-11">
+          <div>
+            <span class="text-stone text-xs font-semibold uppercase tracking-[0.16em]">Yapısal &middot; Bitirme Projesi</span>
+            <h3 class="text-2xl md:text-3xl font-semibold text-ink mt-3">6 Katlı Betonarme Ofis Binası</h3>
+            <p class="text-ink/65 mt-4 leading-relaxed max-w-2xl">
+              Tınaztepe kampüsünde yer alan, ZC zemin sınıfına sahip 6 katlı betonarme ofis binasının tasarımı ve analizi. Tüm veriler ve hesaplamalar TBDY 2018 standartlarına uygun olarak ETABS üzerinden gerçekleştirilmiştir.
+            </p>
+            <div class="flex flex-wrap items-center gap-2 mt-6">
+              <span class="text-sm border border-stone/35 text-stone px-3.5 py-1.5 rounded-full">Zemin Sınıfı: ZC</span>
+              <span class="text-sm border border-stone/35 text-stone px-3.5 py-1.5 rounded-full">Yönetmelik: TBDY 2018</span>
+              <span class="text-sm border border-stone/35 text-stone px-3.5 py-1.5 rounded-full">Yazılım: ETABS</span>
+              <span class="text-sm border border-stone/35 text-stone px-3.5 py-1.5 rounded-full">6 Kat</span>
+              <span class="inline-flex items-center gap-1.5 text-sm font-medium text-stone ml-auto pl-2">
+                Poster Afişini Gör
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
+              </span>
+            </div>
+          </div>
+          <div class="hidden md:flex items-center justify-center">
+            <!-- Lumped-mass stick model: each floor reduced to a point mass on the column line,
+                 as used in seismic (earthquake) response calculations. -->
+            <svg width="110" height="130" viewBox="0 0 110 130" fill="none" class="text-stone/55">
+              <line x1="55" y1="8" x2="55" y2="112" stroke="currentColor" stroke-width="1.5"/>
+              <circle cx="55" cy="14" r="6.5" stroke="currentColor" stroke-width="1.5" fill="#FFFDF6"/>
+              <circle cx="55" cy="30" r="6.5" stroke="currentColor" stroke-width="1.5" fill="#FFFDF6"/>
+              <circle cx="55" cy="46" r="6.5" stroke="currentColor" stroke-width="1.5" fill="#FFFDF6"/>
+              <circle cx="55" cy="62" r="6.5" stroke="currentColor" stroke-width="1.5" fill="#FFFDF6"/>
+              <circle cx="55" cy="78" r="6.5" stroke="currentColor" stroke-width="1.5" fill="#FFFDF6"/>
+              <circle cx="55" cy="94" r="6.5" stroke="currentColor" stroke-width="1.5" fill="#FFFDF6"/>
+              <path d="M55 22.5 L47 26 L55 30" stroke="currentColor" stroke-width="1" fill="none" opacity="0.6"/>
+              <line x1="30" y1="112" x2="80" y2="112" stroke="currentColor" stroke-width="1.5"/>
+              <line x1="32" y1="112" x2="26" y2="119" stroke="currentColor" stroke-width="1"/>
+              <line x1="42" y1="112" x2="36" y2="119" stroke="currentColor" stroke-width="1"/>
+              <line x1="52" y1="112" x2="46" y2="119" stroke="currentColor" stroke-width="1"/>
+              <line x1="62" y1="112" x2="56" y2="119" stroke="currentColor" stroke-width="1"/>
+              <line x1="72" y1="112" x2="66" y2="119" stroke="currentColor" stroke-width="1"/>
+              <line x1="82" y1="112" x2="76" y2="119" stroke="currentColor" stroke-width="1"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Maden Tezi -->
+      <div class="reveal poster-card group rounded-2xl bg-surface shadow-card border border-ink/8 overflow-hidden cursor-pointer transition-shadow hover:shadow-glow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet/70" role="button" tabindex="0" data-poster-trigger="maden" aria-haspopup="dialog" aria-label="Şev Stabilitesi tez posterini büyük boyutta görüntüle">
+        <div class="grid md:grid-cols-[1fr_auto] gap-8 p-8 md:p-11">
+          <div>
+            <span class="text-violet text-xs font-semibold uppercase tracking-[0.16em]">Maden &middot; Bitirme Tezi</span>
+            <h3 class="text-2xl md:text-3xl font-semibold text-ink mt-3">Kısa Dönem Açık İşletme Planlarında Kazı İlerleme Yönlerinin Şev Stabilitesi Üzerine Etkisi</h3>
+            <p class="text-ink/65 mt-4 leading-relaxed max-w-2xl">
+              Aydın Linyit Madenciliği ocağı için hazırlanan tez kapsamında ocağın nihai tasarımı tamamlanmış olup, faylara yaklaşım yönlerinin ve faylara hangi açıyla gidildiğinde şev stabilitesinin güvenli olacağının incelenmesi araştırılmıştır.
+            </p>
+            <div class="flex flex-wrap items-center gap-2 mt-6">
+              <span class="text-sm border border-violet/35 text-violet px-3.5 py-1.5 rounded-full">Saha: Aydın Linyit</span>
+              <span class="text-sm border border-violet/35 text-violet px-3.5 py-1.5 rounded-full">Odak: Şev Stabilitesi</span>
+              <span class="text-sm border border-violet/35 text-violet px-3.5 py-1.5 rounded-full">Kazı İlerleme Yönü</span>
+              <span class="inline-flex items-center gap-1.5 text-sm font-medium text-violet ml-auto pl-2">
+                Poster Afişini Gör
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
+              </span>
+            </div>
+          </div>
+          <div class="hidden md:flex items-center justify-center">
+            <!-- Mini isohypse (contour) map — nested irregular closed loops, echoing the
+                 topographic survey figures in the thesis poster. -->
+            <svg width="130" height="130" viewBox="0 0 130 130" fill="none" class="text-violet/55">
+              <path d="M65 8 C84 9 100 18 108 34 C116 50 114 68 103 82 C93 96 76 105 58 106 C40 107 23 100 14 86 C5 72 6 53 16 39 C26 25 46 7 65 8 Z" stroke="currentColor" stroke-width="1.1" opacity="0.35"/>
+              <path d="M64 20 C79 21 90 28 96 40 C102 52 100 65 91 75 C83 85 69 91 55 90 C42 89 30 83 24 72 C18 61 19 48 27 38 C35 28 50 19 64 20 Z" stroke="currentColor" stroke-width="1.1" opacity="0.5"/>
+              <path d="M63 33 C74 34 82 40 86 49 C90 58 88 67 81 74 C75 81 64 85 54 84 C45 83 36 78 32 70 C28 62 29 52 35 45 C41 38 52 32 63 33 Z" stroke="currentColor" stroke-width="1.2" opacity="0.65"/>
+              <path d="M61 46 C69 47 75 51 78 58 C81 65 79 71 74 76 C69 81 61 83 54 82 C47 81 41 77 39 71 C37 65 38 58 42 53 C46 48 54 45 61 46 Z" stroke="currentColor" stroke-width="1.3" opacity="0.8"/>
+              <path d="M58 56 C63 56 67 59 68 63 C69 67 67 71 63 73 C59 75 54 75 51 72 C48 69 47 65 49 61 C51 57 54 56 58 56 Z" stroke="currentColor" stroke-width="1.4"/>
+              <circle cx="58" cy="64" r="1.6" fill="currentColor"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="relative z-10"><div class="max-w-6xl mx-auto px-6"><div class="divider-line" aria-hidden="true"></div></div></div>
+
+<!-- ILGI ALANLARI -->
+<section id="ilgi" class="relative z-10 py-28 md:py-40 bg-soft/92">
+  <div class="max-w-6xl mx-auto px-6">
+    <p class="reveal eyebrow mb-10">İlgi Alanları &amp; Dil</p>
+
+    <div class="grid md:grid-cols-2 gap-10">
+      <div class="reveal">
+        <h2 class="font-sans font-bold text-2xl md:text-3xl tracking-tight text-ink mb-6">İlgi Alanları</h2>
+        <div class="space-y-3">
+          <div class="flex items-center gap-3 rounded-xl bg-surface border border-ink/8 px-5 py-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-violet shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.042 21.672L13.684 16.6m0 0l-2.51 2.225.569-9.47 5.227 7.917-3.286-.672zM12 2.25V4.5m5.834.166l-1.591 1.591M20.25 10.5H18M7.757 14.743l-1.59 1.59M6 10.5H3.75m4.007-4.243l-1.59-1.59" /></svg>
+            <span class="text-ink text-sm">Çizim ve Tasarım <span class="text-ink/50">(Web-Arayüz Tasarımı)</span></span>
+          </div>
+          <div class="flex items-center gap-3 rounded-xl bg-surface border border-ink/8 px-5 py-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-violet shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 9l10.5-3m-10.5 3v10.5a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V10.5a2.25 2.25 0 012.25-2.25h.75m10.5-3l-10.5 3m10.5-3v10.5a2.25 2.25 0 002.25 2.25h.75a2.25 2.25 0 002.25-2.25V6.75" /></svg>
+            <span class="text-ink text-sm">Müzik <span class="text-ink/50">(Gitar ve Ney)</span></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <h2 class="font-sans font-bold text-2xl md:text-3xl tracking-tight text-ink mb-6">Yabancı Dil</h2>
+        <div class="rounded-xl bg-surface border border-ink/8 px-6 py-6">
+          <div class="flex items-baseline justify-between mb-3">
+            <span class="text-ink font-medium">İngilizce</span>
+            <span class="text-xs text-violet uppercase tracking-widest font-semibold">A2 &middot; Temel</span>
+          </div>
+          <div class="flex gap-1.5">
+            <span class="h-1.5 flex-1 rounded-full bg-violet"></span>
+            <span class="h-1.5 flex-1 rounded-full bg-violet"></span>
+            <span class="h-1.5 flex-1 rounded-full bg-ink/10"></span>
+            <span class="h-1.5 flex-1 rounded-full bg-ink/10"></span>
+            <span class="h-1.5 flex-1 rounded-full bg-ink/10"></span>
+            <span class="h-1.5 flex-1 rounded-full bg-ink/10"></span>
+          </div>
+          <div class="flex justify-between mt-2 text-[0.65rem] text-ink/35 uppercase tracking-wider">
+            <span>A1</span><span>A2</span><span>B1</span><span>B2</span><span>C1</span><span>C2</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="relative z-10"><div class="max-w-6xl mx-auto px-6"><div class="divider-line" aria-hidden="true"></div></div></div>
+
+<!-- REFERANSLAR -->
+<section id="referanslar" class="relative z-10 py-28 md:py-40 bg-cream/92">
+  <div class="max-w-6xl mx-auto px-6">
+    <p class="reveal eyebrow mb-4">Referanslar</p>
+    <h2 class="reveal font-sans font-bold text-3xl md:text-5xl tracking-tight text-ink mb-16">Referanslar</h2>
+
+    <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
+      <div class="reveal rounded-2xl bg-surface shadow-card border border-ink/8 p-7">
+        <div class="w-11 h-11 rounded-full bg-violet/12 flex items-center justify-center text-violet text-sm font-semibold mb-4">OA</div>
+        <p class="text-ink font-medium">Prof. Dr. Okay AKSOY</p>
+        <p class="text-ink/50 text-sm mt-1">DEÜ Maden Mühendisliği</p>
+      </div>
+      <div class="reveal rounded-2xl bg-surface shadow-card border border-ink/8 p-7">
+        <div class="w-11 h-11 rounded-full bg-violet/12 flex items-center justify-center text-violet text-sm font-semibold mb-4">KK</div>
+        <p class="text-ink font-medium">Prof. Dr. Kerim KÜÇÜK</p>
+        <p class="text-ink/50 text-sm mt-1">DEÜ Maden Mühendisliği</p>
+      </div>
+      <div class="reveal rounded-2xl bg-surface shadow-card border border-ink/8 p-7">
+        <div class="w-11 h-11 rounded-full bg-stone/15 flex items-center justify-center text-stone text-sm font-semibold mb-4">HÇ</div>
+        <p class="text-ink font-medium">Prof. Dr. Hikmet ÇATAL</p>
+        <p class="text-ink/50 text-sm mt-1">DEÜ İnşaat Mühendisliği</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="relative z-10"><div class="max-w-6xl mx-auto px-6"><div class="divider-line" aria-hidden="true"></div></div></div>
+
+<!-- ILETISIM / FOOTER -->
+<footer id="iletisim" class="relative z-10 pt-28 pb-10 bg-soft/92 overflow-hidden">
+  <div class="relative max-w-6xl mx-auto px-6">
+    <p class="reveal eyebrow mb-4">İletişim</p>
+
+    <div class="grid md:grid-cols-[1.2fr_1fr] gap-14 items-start">
+      <div class="reveal">
+        <h2 class="font-sans font-bold text-3xl md:text-5xl tracking-tight text-ink mb-5">İletişime Geçin</h2>
+        <p class="text-ink/65 text-lg leading-relaxed max-w-md mb-8">Staj, proje iş birliği veya akademik danışma için bana ulaşabilirsiniz.</p>
+
+        <button type="button" data-contact-trigger class="btn-glow inline-flex items-center gap-2 bg-violet text-cream font-medium px-7 py-3.5 rounded-full shadow-glow hover:bg-violetdeep transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet/70 focus-visible:ring-offset-2 focus-visible:ring-offset-cream mb-10">
+          İletişim Formu
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
+        </button>
+
+        <ul class="space-y-4">
+          <li class="flex items-center gap-3">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-violet shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a1.5 1.5 0 001.5-1.5v-3.379a1.5 1.5 0 00-1.006-1.415l-4.436-1.579a1.5 1.5 0 00-1.576.363l-1.203 1.203a11.25 11.25 0 01-6.226-6.226l1.203-1.203a1.5 1.5 0 00.363-1.576L7.594 3.006A1.5 1.5 0 006.179 2H2.75a1.5 1.5 0 00-1.5 1.5v2.25z" /></svg>
+            <a href="tel:+905377876857" class="text-ink hover:text-violet transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet/70 rounded-sm">+90 537 787 68 57</a>
+          </li>
+          <li class="flex items-center gap-3">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-violet shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0a2.25 2.25 0 00-2.25-2.25h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" /></svg>
+            <a href="mailto:ahmetkagan.turkmen@ogr.deu.edu.tr" class="text-ink hover:text-violet transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet/70 rounded-sm break-all">ahmetkagan.turkmen@ogr.deu.edu.tr</a>
+          </li>
+          <li class="flex items-start gap-3">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-violet shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" /></svg>
+            <span class="text-ink">Çamlıkule Mah. 242/39 Sok. No: 2/B Kat: 5 Daire: 21<br>Buca / İZMİR</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="reveal card-glow rounded-2xl bg-surface shadow-card p-9 flex flex-col items-center text-center border border-violet/15">
+        <p class="signature text-4xl text-violet">Ahmet Kağan Türkmen</p>
+        <svg class="signature-swash -mt-2 w-40 h-3 text-violet/50" viewBox="0 0 150 10" fill="none" aria-hidden="true"><path d="M2 6c17-5 30 3 48-1s28-6 45-1 33 4 53-2" stroke-width="1.3" stroke-linecap="round"/></svg>
+        <p class="text-xs uppercase tracking-[0.2em] text-ink/50 mt-5">Emniyetli &middot; Ekonomik &middot; Estetik</p>
+        <div class="w-16 h-px bg-ink/12 my-5"></div>
+        <p class="text-ink/50 text-xs">İnşaat Mühendisi &amp; Maden Mühendisi</p>
+      </div>
+    </div>
+
+    <div class="mt-16 pt-6 border-t border-ink/10 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <p class="stamp text-xs text-ink/35">© 2026 Ahmet Kağan Türkmen</p>
+      <p class="stamp text-xs text-ink/35">İzmir, Türkiye</p>
+    </div>
+  </div>
+</footer>
+
+<!-- POSTER MODAL: full-resolution bitirme project posters (inşaat / maden) -->
+<div id="poster-modal" class="fixed inset-0 z-[110] hidden" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="poster-modal-title">
+  <div id="poster-modal-backdrop" class="absolute inset-0 bg-ink/95 backdrop-blur-sm opacity-0 transition-opacity duration-300"></div>
+
+  <div class="relative h-full flex flex-col items-center justify-center p-3 md:p-6">
+    <p id="poster-modal-title" class="sr-only">Proje posteri</p>
+
+    <div id="poster-modal-panel" class="relative flex flex-col items-center gap-4 opacity-0 scale-95 transition-all duration-300 max-w-full">
+      <div class="flex items-center gap-3 w-full justify-between px-1">
+        <span id="poster-modal-label" class="stamp text-xs text-cream/60 uppercase tracking-widest"></span>
+        <div class="flex items-center gap-2">
+          <button type="button" id="poster-zoom-toggle" class="inline-flex items-center gap-1.5 text-xs font-medium text-cream/80 hover:text-cream border border-cream/25 hover:border-cream/50 rounded-full px-3.5 py-1.5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet/70">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607zM10.5 7.5v6m-3-3h6" /></svg>
+            <span data-zoom-label>Yakınlaştır</span>
+          </button>
+          <button type="button" id="poster-modal-close" aria-label="Kapat" class="text-cream/70 hover:text-cream transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet/70 rounded-full p-1.5 border border-cream/25 hover:border-cream/50">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+          </button>
+        </div>
+      </div>
+
+      <div id="poster-frame" class="poster-frame relative rounded-lg overflow-hidden shadow-2xl ring-1 ring-cream/10 bg-[#0e0a17]">
+        <img id="poster-img" src="" alt="" draggable="false" class="poster-img block select-none">
+        <div id="poster-lens" class="poster-lens" aria-hidden="true"></div>
+      </div>
+
+      <p class="poster-hint text-center text-xs text-cream/45 max-w-md px-2">
+        <span class="hidden md:inline">Detayları yakınlaştırmak için fareyle posterin üzerine gelin.</span>
+        <span class="md:hidden">Detayları yakınlaştırmak için postere dokunun, parmağınızla gezdirin.</span>
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT FORM MODAL -->
+<div id="contact-modal" class="fixed inset-0 z-[100] hidden" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="contact-modal-title">
+  <div id="contact-modal-backdrop" class="absolute inset-0 bg-ink/50 backdrop-blur-sm opacity-0 transition-opacity duration-300"></div>
+
+  <div class="relative min-h-full flex items-center justify-center p-4 md:p-6">
+    <div id="contact-modal-panel" class="relative w-full max-w-lg bg-surface rounded-3xl shadow-card border border-ink/8 p-8 md:p-10 opacity-0 scale-95 translate-y-3 transition-all duration-300">
+      <button type="button" id="contact-modal-close" aria-label="Kapat" class="absolute top-5 right-5 text-ink/40 hover:text-ink transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet/70 rounded-full p-1.5">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+      </button>
+
+      <p class="eyebrow mb-3">İletişim Formu</p>
+      <h3 id="contact-modal-title" class="font-sans font-bold text-2xl md:text-3xl tracking-tight text-ink mb-2">Mesajını İlet</h3>
+      <p class="text-ink/55 text-sm mb-7 leading-relaxed">Formu doldur, en kısa sürede sana dönüş yapayım.</p>
+
+      <form id="contact-form" class="flex flex-col" novalidate>
+        <label for="cf-name" class="text-xs uppercase tracking-wider text-ink/45 font-semibold">Ad Soyad</label>
+        <div class="flex items-center mt-2 mb-4 h-11 pl-4 border border-ink/15 rounded-full focus-within:ring-2 focus-within:ring-violet/60 focus-within:border-violet/40 transition-all overflow-hidden">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-violet/60 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0ZM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632Z" /></svg>
+          <input id="cf-name" name="name" type="text" class="h-full px-2.5 w-full outline-none bg-transparent text-sm text-ink placeholder:text-ink/35" placeholder="Adınız Soyadınız" required />
+        </div>
+
+        <label for="cf-email" class="text-xs uppercase tracking-wider text-ink/45 font-semibold">E-posta Adresi</label>
+        <div class="flex items-center mt-2 mb-4 h-11 pl-4 border border-ink/15 rounded-full focus-within:ring-2 focus-within:ring-violet/60 focus-within:border-violet/40 transition-all overflow-hidden">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-violet/60 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0a2.25 2.25 0 00-2.25-2.25h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" /></svg>
+          <input id="cf-email" name="email" type="email" class="h-full px-2.5 w-full outline-none bg-transparent text-sm text-ink placeholder:text-ink/35" placeholder="ornek@eposta.com" required />
+        </div>
+
+        <label for="cf-message" class="text-xs uppercase tracking-wider text-ink/45 font-semibold">Mesaj</label>
+        <textarea id="cf-message" name="message" rows="4" class="w-full mt-2 p-3.5 bg-transparent border border-ink/15 rounded-2xl resize-none outline-none focus:ring-2 focus:ring-violet/60 focus:border-violet/40 transition-all text-sm text-ink placeholder:text-ink/35" placeholder="Mesajınızı yazın" required></textarea>
+
+        <button type="submit" class="flex items-center justify-center gap-2 mt-6 bg-violet hover:bg-violetdeep text-cream font-medium py-3 w-full rounded-full transition-colors shadow-glow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet/70 focus-visible:ring-offset-2 focus-visible:ring-offset-surface">
+          Mesajı Gönder
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
+        </button>
+        <p class="text-xs text-ink/40 text-center mt-3">Gönder'e bastığınızda e-posta uygulamanız açılır.</p>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Mobile menu toggle
+  const menuBtn = document.getElementById('menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const iconOpen = document.getElementById('menu-icon-open');
+  const iconClose = document.getElementById('menu-icon-close');
+
+  menuBtn.addEventListener('click', () => {
+    const isOpen = !mobileMenu.classList.contains('hidden');
+    mobileMenu.classList.toggle('hidden');
+    iconOpen.classList.toggle('hidden');
+    iconClose.classList.toggle('hidden');
+    menuBtn.setAttribute('aria-expanded', String(!isOpen));
+  });
+
+  document.querySelectorAll('.mobile-nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu.classList.add('hidden');
+      iconOpen.classList.remove('hidden');
+      iconClose.classList.add('hidden');
+      menuBtn.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // Emblem backdrop: assembles piece by piece as the page scrolls (0 = top, 1 = bottom).
+  // Layer set, timings, easing and transform math below are ported verbatim from
+  // docs/scrollanimation1.html — the L array, ease/seg functions and render logic are unchanged,
+  // only the 0..1 progress source differs (here it's the whole page, not a dedicated spacer).
+  (function initLogoBuild() {
+    const wrap = document.getElementById('logo-anim-wrap');
+    if (!wrap) return;
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const L = [
+      { k: 'cember', t: [0.40, 0.52], from: {}, type: 'draw' },
+      { k: 'sol', t: [0.30, 0.40], from: { dy: 100 } },
+      { k: 'sag', t: [0.31, 0.41], from: { dy: 100 } },
+      { k: 'yan', t: [0.20, 0.31], from: { dy: 130 } },
+      { k: 'tek', t: [0.10, 0.21], from: { dy: 160 } },
+      { k: 'kaya', t: [0.52, 0.63], from: { dy: 150 } },
+      { k: 'galeri', t: [0.63, 0.71], from: { dy: 60, s: 0.94 } },
+      { k: 'giris', t: [0.63, 0.71], from: { dy: 60, s: 0.94 } },
+      { k: 'isik', t: [0.71, 0.80], from: {} },
+      { k: 'lamba', t: [0.76, 0.85], from: { dy: -18 } },
+      { k: 'kazma', t: [0.85, 0.94], from: { dx: -360, dy: -70, rot: -115 } },
+      { k: 'balyoz', t: [0.87, 0.96], from: { dx: 360, dy: -70, rot: 115 } },
+      { k: 'baret', t: [0.00, 0.10], from: { dy: 370, s: 2.05, o0: 1 } },
+    ];
+
+    const els = {}, mvs = {};
+    L.forEach((l) => {
+      const e = document.getElementById('ly-' + l.k);
+      els[l.k] = e;
+      mvs[l.k] = e ? e.firstElementChild : null;
+    });
+
+    function clamp01(v) { return Math.max(0, Math.min(1, v)); }
+    function ease(t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
+    function seg(p, a, b) { return ease(clamp01((p - a) / (b - a))); }
+
+    function render(p) {
+      L.forEach((l) => {
+        const e = els[l.k], mv = mvs[l.k];
+        if (!e || !mv) return;
+        const t = seg(p, l.t[0], l.t[1]);
+        if (l.type === 'draw') {
+          e.style.opacity = t > 0 ? '1' : '0';
+          const deg = (t * 360).toFixed(1) + 'deg';
+          const m = `conic-gradient(from -96deg, #000 0deg ${deg}, rgba(0,0,0,0) ${deg})`;
+          e.style.webkitMaskImage = m;
+          e.style.maskImage = m;
+        } else {
+          const f = l.from || {}, o0 = f.o0 || 0;
+          const dx = (f.dx || 0) * (1 - t), dy = (f.dy || 0) * (1 - t);
+          const rt = (f.rot || 0) * (1 - t), s = 1 + ((f.s || 1) - 1) * (1 - t);
+          e.style.opacity = String(o0 + (1 - o0) * Math.min(1, t * 1.8));
+          mv.style.transform = `translate(calc(${dx} * var(--u)), calc(${dy} * var(--u))) rotate(${rt.toFixed(2)}deg) scale(${s.toFixed(4)})`;
+        }
+      });
+    }
+
+    if (reduceMotion) {
+      render(1);
+      return;
+    }
+
+    let ticking = false;
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        render(max > 0 ? clamp01(window.scrollY / max) : 0);
+        ticking = false;
+      });
+    }
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+  })();
+
+  // Horizontal scroll rows (skills & software): drag-to-scroll with sliding momentum + vertical-wheel-to-horizontal
+  (function initHscroll() {
+    document.querySelectorAll('.hscroll').forEach((row) => {
+      let isDown = false, startX = 0, startScroll = 0, moved = false;
+      let velocity = 0, lastX = 0, lastT = 0, momentumId = null;
+
+      function stopMomentum() {
+        if (momentumId) cancelAnimationFrame(momentumId);
+        momentumId = null;
+      }
+      function glide() {
+        row.scrollLeft -= velocity * 16;
+        velocity *= 0.93;
+        if (Math.abs(velocity) < 0.02) { momentumId = null; return; }
+        momentumId = requestAnimationFrame(glide);
+      }
+
+      row.addEventListener('pointerdown', (e) => {
+        isDown = true; moved = false;
+        startX = e.clientX;
+        startScroll = row.scrollLeft;
+        lastX = e.clientX;
+        lastT = performance.now();
+        velocity = 0;
+        stopMomentum();
+        row.classList.add('dragging');
+        row.setPointerCapture(e.pointerId);
+      });
+      row.addEventListener('pointermove', (e) => {
+        if (!isDown) return;
+        const dx = e.clientX - startX;
+        if (Math.abs(dx) > 3) moved = true;
+        row.scrollLeft = startScroll - dx;
+        const now = performance.now();
+        const dt = now - lastT;
+        if (dt > 0) velocity = (e.clientX - lastX) / dt;
+        lastX = e.clientX;
+        lastT = now;
+      });
+      const stop = () => {
+        if (!isDown) return;
+        isDown = false;
+        row.classList.remove('dragging');
+        if (Math.abs(velocity) > 0.05) glide();
+      };
+      row.addEventListener('pointerup', stop);
+      row.addEventListener('pointercancel', stop);
+      row.addEventListener('pointerleave', stop);
+      row.addEventListener('click', (e) => { if (moved) e.preventDefault(); }, true);
+
+      row.addEventListener('wheel', (e) => {
+        if (Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return;
+        if (row.scrollWidth <= row.clientWidth) return;
+        e.preventDefault();
+        stopMomentum();
+        row.scrollLeft += e.deltaY;
+      }, { passive: false });
+    });
+  })();
+
+  // CV skill rows: gentle sideways drift tied to vertical scroll position
+  (function initCvParallax() {
+    const rows = document.querySelectorAll('.cv-row');
+    if (!rows.length || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const amplitude = 46;
+    let ticking = false;
+
+    function render() {
+      const vh = window.innerHeight;
+      rows.forEach((row) => {
+        const track = row.querySelector('.cv-row-track');
+        if (!track) return;
+        const rect = row.getBoundingClientRect();
+        const center = rect.top + rect.height / 2;
+        const progress = Math.max(-1, Math.min(1, (vh / 2 - center) / (vh / 2)));
+        const dir = parseFloat(row.dataset.parallax || '1');
+        track.style.transform = `translateX(${(progress * amplitude * dir).toFixed(1)}px)`;
+      });
+      ticking = false;
+    }
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(render);
+    }
+    render();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+  })();
+
+  // Only show the right-edge scroll fade when a row is actually wider than its box
+  // (rows now center themselves when the cards fit, so the hint should hide then)
+  (function initFadeVisibility() {
+    const fades = document.querySelectorAll('.hscroll + .pointer-events-none');
+    if (!fades.length) return;
+    function update() {
+      fades.forEach((fade) => {
+        const row = fade.previousElementSibling;
+        const overflowing = row.scrollWidth > row.clientWidth + 1;
+        fade.style.opacity = overflowing ? '1' : '0';
+      });
+    }
+    update();
+    window.addEventListener('resize', update);
+  })();
+
+  // Scroll reveal
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!prefersReducedMotion && 'IntersectionObserver' in window) {
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('is-visible'), (i % 4) * 60);
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+  } else {
+    document.querySelectorAll('.reveal').forEach(el => el.classList.add('is-visible'));
+  }
+
+  // Active nav link on scroll
+  const navLinks = document.querySelectorAll('.nav-link');
+  const sections = ['hakkimda', 'cv', 'deneyim', 'projeler'].map(id => document.getElementById(id)).filter(Boolean);
+  if ('IntersectionObserver' in window && sections.length) {
+    const navObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const link = document.querySelector('.nav-link[href="#' + entry.target.id + '"]');
+        if (!link) return;
+        if (entry.isIntersecting) {
+          navLinks.forEach(l => l.classList.remove('active'));
+          link.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    sections.forEach(sec => navObserver.observe(sec));
+  }
+
+  // Poster modal: full-resolution project posters with a fit-to-screen view, a click-to-zoom
+  // pannable mode (touch-friendly), and a magnifier lens that tracks the cursor on precise
+  // pointers. The lens and the zoomed view both sample the same source image, so detail stays
+  // sharp since the source is much higher resolution than its normal on-screen display size.
+  (function initPosterModal() {
+    const modal = document.getElementById('poster-modal');
+    const triggers = document.querySelectorAll('[data-poster-trigger]');
+    if (!modal || !triggers.length) return;
+
+    const backdrop = document.getElementById('poster-modal-backdrop');
+    const panel = document.getElementById('poster-modal-panel');
+    const closeBtn = document.getElementById('poster-modal-close');
+    const frame = document.getElementById('poster-frame');
+    const img = document.getElementById('poster-img');
+    const lens = document.getElementById('poster-lens');
+    const label = document.getElementById('poster-modal-label');
+    const zoomToggle = document.getElementById('poster-zoom-toggle');
+    const zoomLabel = zoomToggle.querySelector('[data-zoom-label]');
+
+    const POSTERS = {
+      insaat: { src: 'docs/poster-insaat.webp', label: 'İnşaat · 6 Katlı Betonarme Ofis Binası — Poster' },
+      maden: { src: 'docs/poster-maden.webp', label: 'Maden · Şev Stabilitesi Tez Posteri' },
+    };
+    const LENS_ZOOM = 2.6;
+    const LENS_SIZE = 220;
+
+    let lastFocused = null;
+    let isZoomed = false;
+
+    function onKeydown(e) { if (e.key === 'Escape') closeModal(); }
+
+    function setZoomed(state) {
+      isZoomed = state;
+      frame.classList.toggle('is-zoomed', isZoomed);
+      zoomLabel.textContent = isZoomed ? 'Sığdır' : 'Yakınlaştır';
+      lens.style.opacity = '0';
+      if (isZoomed) {
+        // Jump to the image's true native resolution (not just a multiple of the shrunk
+        // "fit" size) so panning actually reaches full source sharpness instead of merely
+        // upscaling an already-downscaled render.
+        const rect = img.getBoundingClientRect();
+        const nativeW = img.naturalWidth || Math.round(rect.width * LENS_ZOOM);
+        img.style.width = nativeW + 'px';
+        img.style.height = 'auto';
+        requestAnimationFrame(() => {
+          frame.scrollLeft = (img.scrollWidth - frame.clientWidth) / 2;
+          frame.scrollTop = (img.scrollHeight - frame.clientHeight) / 2;
+        });
+      } else {
+        img.style.width = '';
+        img.style.height = '';
+        // frame keeps overflow-hidden in fit mode, but a stale scrollTop/scrollLeft from a
+        // previous zoomed session still shifts the clipped viewport — reset it explicitly.
+        frame.scrollLeft = 0;
+        frame.scrollTop = 0;
+      }
+    }
+
+    function openModal(kind) {
+      const data = POSTERS[kind];
+      if (!data) return;
+      lastFocused = document.activeElement;
+      img.src = data.src;
+      img.alt = data.label + ' — büyük boyutlu poster';
+      label.textContent = data.label;
+      setZoomed(false);
+      modal.classList.remove('hidden');
+      modal.setAttribute('aria-hidden', 'false');
+      document.documentElement.style.overflow = 'hidden';
+      requestAnimationFrame(() => {
+        backdrop.classList.remove('opacity-0');
+        panel.classList.remove('opacity-0', 'scale-95');
+      });
+      document.addEventListener('keydown', onKeydown);
+      closeBtn.focus();
+    }
+
+    function closeModal() {
+      backdrop.classList.add('opacity-0');
+      panel.classList.add('opacity-0', 'scale-95');
+      document.documentElement.style.overflow = '';
+      document.removeEventListener('keydown', onKeydown);
+      window.setTimeout(() => {
+        modal.classList.add('hidden');
+        modal.setAttribute('aria-hidden', 'true');
+        setZoomed(false);
+        img.src = '';
+      }, 300);
+      if (lastFocused && lastFocused.focus) lastFocused.focus();
+    }
+
+    triggers.forEach((el) => {
+      el.addEventListener('click', () => openModal(el.dataset.posterTrigger));
+      el.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(el.dataset.posterTrigger); }
+      });
+    });
+    closeBtn.addEventListener('click', closeModal);
+    backdrop.addEventListener('click', closeModal);
+    panel.addEventListener('click', (e) => e.stopPropagation());
+    zoomToggle.addEventListener('click', () => setZoomed(!isZoomed));
+
+    // Magnifier lens: desktop / precise-pointer only, and only while in the "fit" (non-zoomed) view.
+    const hoverCapable = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    if (hoverCapable) {
+      img.addEventListener('mousemove', (e) => {
+        if (isZoomed) { lens.style.opacity = '0'; return; }
+        const rect = img.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        lens.style.opacity = '1';
+        lens.style.backgroundImage = `url(${img.currentSrc || img.src})`;
+        lens.style.backgroundSize = `${(rect.width * LENS_ZOOM).toFixed(1)}px ${(rect.height * LENS_ZOOM).toFixed(1)}px`;
+        lens.style.left = (x - LENS_SIZE / 2).toFixed(1) + 'px';
+        lens.style.top = (y - LENS_SIZE / 2).toFixed(1) + 'px';
+        lens.style.backgroundPosition = `${(-(x * LENS_ZOOM - LENS_SIZE / 2)).toFixed(1)}px ${(-(y * LENS_ZOOM - LENS_SIZE / 2)).toFixed(1)}px`;
+      });
+      img.addEventListener('mouseleave', () => { lens.style.opacity = '0'; });
+    }
+
+    // Drag-to-pan while zoomed (pointer events cover mouse + touch alike).
+    let isPanning = false, panStartX = 0, panStartY = 0, scrollStartX = 0, scrollStartY = 0, dragMoved = false;
+    frame.addEventListener('pointerdown', (e) => {
+      if (!isZoomed) return;
+      isPanning = true; dragMoved = false;
+      panStartX = e.clientX; panStartY = e.clientY;
+      scrollStartX = frame.scrollLeft; scrollStartY = frame.scrollTop;
+      frame.classList.add('is-dragging');
+      frame.setPointerCapture(e.pointerId);
+    });
+    frame.addEventListener('pointermove', (e) => {
+      if (!isPanning) return;
+      const dx = e.clientX - panStartX, dy = e.clientY - panStartY;
+      if (Math.abs(dx) > 3 || Math.abs(dy) > 3) dragMoved = true;
+      frame.scrollLeft = scrollStartX - dx;
+      frame.scrollTop = scrollStartY - dy;
+    });
+    const stopPan = () => { isPanning = false; frame.classList.remove('is-dragging'); };
+    frame.addEventListener('pointerup', stopPan);
+    frame.addEventListener('pointercancel', stopPan);
+
+    img.addEventListener('click', () => {
+      if (dragMoved) { dragMoved = false; return; }
+      setZoomed(!isZoomed);
+    });
+  })();
+
+  // Contact form modal: centered popup with a blurred backdrop
+  (function initContactModal() {
+    const modal = document.getElementById('contact-modal');
+    const backdrop = document.getElementById('contact-modal-backdrop');
+    const panel = document.getElementById('contact-modal-panel');
+    const closeBtn = document.getElementById('contact-modal-close');
+    const triggers = document.querySelectorAll('[data-contact-trigger]');
+    const form = document.getElementById('contact-form');
+    if (!modal || !triggers.length) return;
+
+    let lastFocused = null;
+
+    function onKeydown(e) {
+      if (e.key === 'Escape') closeModal();
+    }
+
+    function openModal() {
+      lastFocused = document.activeElement;
+      modal.classList.remove('hidden');
+      modal.setAttribute('aria-hidden', 'false');
+      document.documentElement.style.overflow = 'hidden';
+      requestAnimationFrame(() => {
+        backdrop.classList.remove('opacity-0');
+        panel.classList.remove('opacity-0', 'scale-95', 'translate-y-3');
+      });
+      document.addEventListener('keydown', onKeydown);
+      const firstField = form.querySelector('input, textarea');
+      if (firstField) firstField.focus();
+    }
+
+    function closeModal() {
+      backdrop.classList.add('opacity-0');
+      panel.classList.add('opacity-0', 'scale-95', 'translate-y-3');
+      document.documentElement.style.overflow = '';
+      document.removeEventListener('keydown', onKeydown);
+      window.setTimeout(() => {
+        modal.classList.add('hidden');
+        modal.setAttribute('aria-hidden', 'true');
+      }, 300);
+      if (lastFocused && lastFocused.focus) lastFocused.focus();
+    }
+
+    triggers.forEach((btn) => btn.addEventListener('click', openModal));
+    closeBtn.addEventListener('click', closeModal);
+    backdrop.addEventListener('click', closeModal);
+    panel.addEventListener('click', (e) => e.stopPropagation());
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = form.querySelector('#cf-name').value.trim();
+      const email = form.querySelector('#cf-email').value.trim();
+      const message = form.querySelector('#cf-message').value.trim();
+      const subject = encodeURIComponent(`Website İletişim Formu — ${name}`);
+      const body = encodeURIComponent(`${message}\n\n— ${name} (${email})`);
+      window.location.href = `mailto:ahmetkagan.turkmen@ogr.deu.edu.tr?subject=${subject}&body=${body}`;
+    });
+  })();
+</script>
+</body>
+</html>

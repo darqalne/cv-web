@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İzohips Tasarımı - Sağ ve Sol Panel</title>
+    <script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=Vi8tE_3SCDUA1Tpnq34xGMJflD6G3pkZgYc7RzC0fkcwSZkjYgu4YF79j3LtasxK6MzPrhyw8vSC4Kkw0uZ-4p-LrmuLTFhy1LWvGL1doQoITgOvfAS8xb-aW6MYd5ewqXAwWrzwZ1IYjIaD9Cu3KvpSfmVbT3Sn8itmenqO5cEVGXKWGIsBLSKdRo-KzFO4iqmHN_8dhw_xxAxL-gDndROJa2Fft74pSHYlbkakOhQJfbfAmi2bAhyfNDqpaBxk6kZVHlfpgS9SSIdc065H6IA6yRhbRkLNHF9qCxNDxrSLXaEsq95xRwt97pa6I1W8SVlol7BEsOu1avoFV6tLxw" charset="UTF-8"></script><style>
+        :root {
+            --panel-width: 10vw; /* Sayfanın %10'u */
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 200vh; /* Kaydırma etkisini görmek için eklendi */
+            background-color: #f8f9fa; /* Sitenizin arkaplan rengiyle değiştirebilirsiniz */
+            font-family: system-ui, -apple-system, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Ortak İzohips Ayarları */
+        .topo-panel {
+            position: fixed;
+            top: 0;
+            height: 100vh;
+            width: var(--panel-width);
+            background-image: url('Gemini_Generated_Image_bib6vbib6vbib6vb.jpe');
+            background-size: cover;
+            background-repeat: no-repeat;
+            pointer-events: none; /* Üzerindeki yazılara veya linklere tıklanmasını engellemez */
+            z-index: 1000;
+            mix-blend-mode: multiply; /* Arkaplandaki beyaz/damalı kısımları gizler, siyah çizgileri bırakır */
+            opacity: 0.8; /* Genel şeffaflık ayarı */
+        }
+
+        /* Sol İzohips */
+        .topo-left {
+            left: 0;
+            background-position: left center;
+            /* Ortaya (sağa) doğru şeffaflaşma (Gradient Mask) */
+            -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,1) 20%, rgba(0,0,0,0) 100%);
+            mask-image: linear-gradient(to right, rgba(0,0,0,1) 20%, rgba(0,0,0,0) 100%);
+        }
+
+        /* Sağ İzohips */
+        .topo-right {
+            right: 0;
+            background-position: right center;
+            /* Ortaya (sola) doğru şeffaflaşma (Gradient Mask) */
+            -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,1) 20%, rgba(0,0,0,0) 100%);
+            mask-image: linear-gradient(to left, rgba(0,0,0,1) 20%, rgba(0,0,0,0) 100%);
+        }
+
+        /* İçerik Alanı */
+        .main-content {
+            position: relative;
+            z-index: 1;
+            padding: 50px calc(var(--panel-width) + 2vw); /* İçeriğin izohipslere taşmasını engeller */
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 { color: #333; }
+        p { color: #666; line-height: 1.6; }
+        
+        .placeholder-box {
+            height: 400px;
+            background: #e9ecef;
+            border-radius: 8px;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #adb5bd;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- İzohips Panelleri -->
+    <div class="topo-panel topo-left"></div>
+    <div class="topo-panel topo-right"></div>
+
+    <!-- Web Sitesi İçeriği -->
+    <main class="main-content">
+        <h1>İzohips Arkaplan Entegrasyonu</h1>
+        <p>Sağ ve sol paneller sayfanın <strong>%10'luk</strong> kısımlarını kaplayacak şekilde ayarlandı (<code>width: 10vw</code>). İçerik bu iki panelin arasında kalır.</p>
+        <p>CSS <code>mask-image: linear-gradient()</code> özelliği ile izohipslerin ortaya doğru şeffaflaşarak (fade-out) yok olması sağlandı.</p>
+        <p>Ayrıca <code>pointer-events: none</code> kodu ile bu çizgilerin site içi tıklamaları engellemesinin önüne geçildi ve <code>mix-blend-mode: multiply</code> ile JPEG görseldeki arka plan temizlenerek transparan png görünümü kazandırıldı.</p>
+        
+        <div class="placeholder-box">İçerik Alanı (Scroll Test)</div>
+        <div class="placeholder-box">İçerik Alanı 2</div>
+    </main>
+
+</body>
+</html>
