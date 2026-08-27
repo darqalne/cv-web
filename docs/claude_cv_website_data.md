@@ -46,7 +46,7 @@
 ## 10. Referanslar
 - Prof. Dr. Okay AKSOY - DEÜ Maden Müh.
 - Prof. Dr. Kerim KÜÇÜK - DEÜ Maden Müh.
-- Prof. Dr. Hikmet ÇATAL - DEÜ İnşaat Müh.
+- Öğr. Gör. Dr. Özgür BOZDAĞ - DEÜ İnşaat Müh.
 
 ---
 
