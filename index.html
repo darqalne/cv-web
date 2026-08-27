@@ -133,6 +133,21 @@
 
   .eyebrow { color: #6B46C4; font-weight: 600; font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase; }
 
+  /* Drawing-sheet index tag — echoes the sheet/revision numbering on a technical
+     construction or mine-plan drawing, next to each section's eyebrow label. */
+  .sheet-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: none;
+    color: rgba(36,26,54,0.4);
+    border: 1px solid rgba(36,26,54,0.18);
+    border-radius: 4px;
+    padding: 0.15rem 0.5rem;
+    line-height: 1.4;
+  }
+
   .stamp { font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.06em; }
 
   /* Scroll-built emblem — layer positions/sizes are exact percentages of the square stage,
@@ -425,6 +440,7 @@
       <a href="#cv" class="mobile-nav-link py-3 text-ink/60 hover:text-ink transition-colors border-b border-ink/8">Eğitim &amp; Yetkinlik</a>
       <a href="#deneyim" class="mobile-nav-link py-3 text-ink/60 hover:text-ink transition-colors border-b border-ink/8">Deneyim</a>
       <a href="#projeler" class="mobile-nav-link py-3 text-ink/60 hover:text-ink transition-colors border-b border-ink/8">Projeler</a>
+      <a href="#basarilar" class="mobile-nav-link py-3 text-ink/60 hover:text-ink transition-colors border-b border-ink/8">Başarılar</a>
       <a href="#referanslar" class="mobile-nav-link py-3 text-ink/60 hover:text-ink transition-colors border-b border-ink/8">Referanslar</a>
       <a href="#iletisim" class="mobile-nav-link py-3 text-violet font-medium">İletişim</a>
     </nav>
@@ -479,7 +495,7 @@
   <div class="max-w-6xl mx-auto px-6">
     <div class="grid md:grid-cols-[1.3fr_1fr] gap-14 md:gap-16">
       <div class="reveal">
-        <p class="eyebrow mb-4">Hakkımda</p>
+        <p class="eyebrow mb-4 flex items-center gap-3"><span class="sheet-tag">01 / 08</span>Hakkımda</p>
         <h2 class="font-sans font-bold text-3xl md:text-5xl tracking-tight text-ink mb-7">Sahada öğrenen, çizim masasında tasarlayan bir mühendis adayı.</h2>
         <p class="text-ink/65 text-lg leading-[1.8]">
           İzmir Dokuz Eylül Üniversitesi İnşaat Mühendisliği ve Çift Anadal Programı (ÇAP) kapsamında Maden Mühendisliği bölümü öğrencisiyim.
@@ -522,7 +538,7 @@
 <!-- CV: EĞİTİM & YETKİNLİK -->
 <section id="cv" class="relative z-10 py-28 md:py-40 bg-soft/92 overflow-x-hidden">
   <div class="max-w-6xl mx-auto px-6">
-    <p class="reveal eyebrow mb-4">Eğitim &amp; Yetkinlik</p>
+    <p class="reveal eyebrow mb-4 flex items-center gap-3"><span class="sheet-tag">02 / 08</span>Eğitim &amp; Yetkinlik</p>
     <h2 class="reveal font-sans font-bold text-3xl md:text-5xl tracking-tight text-ink mb-5">Eğitim &amp; Yetkinlikler</h2>
     <p class="reveal text-ink/65 max-w-2xl mb-16 text-lg leading-relaxed">İki mühendislik disiplininin eş zamanlı yürütüldüğü akademik program ve bu programı destekleyen yazılım/teknik beceriler.</p>
 
@@ -663,63 +679,107 @@
 <!-- DENEYIM -->
 <section id="deneyim" class="relative z-10 py-28 md:py-40 bg-cream/92">
   <div class="max-w-6xl mx-auto px-6">
-    <p class="reveal eyebrow mb-4">Staj Deneyimi</p>
+    <p class="reveal eyebrow mb-4 flex items-center gap-3"><span class="sheet-tag">03 / 08</span>Staj Deneyimi</p>
     <h2 class="reveal font-sans font-bold text-3xl md:text-5xl tracking-tight text-ink mb-16">Saha &amp; Staj Deneyimi</h2>
 
-    <div class="grid md:grid-cols-2 gap-x-12 gap-y-16">
-      <div>
-        <h3 class="reveal text-sm font-semibold uppercase tracking-[0.16em] text-stone mb-7 pb-3 border-b border-stone/25">İnşaat Stajları</h3>
-        <ol class="space-y-6 border-l border-ink/12 pl-6">
-          <li class="reveal relative">
-            <span class="absolute -left-[27px] top-6 w-2.5 h-2.5 rounded-full bg-stone ring-4 ring-cream"></span>
-            <div class="glass rounded-xl px-5 py-4">
+    <div class="grid md:grid-cols-[1.4fr_1fr] gap-14 md:gap-16">
+      <ol class="space-y-6 border-l border-ink/12 pl-6">
+        <li class="reveal relative">
+          <span class="absolute -left-[27px] top-6 w-2.5 h-2.5 rounded-full bg-stone ring-4 ring-cream"></span>
+          <div class="glass rounded-xl px-5 py-4">
+            <div class="flex flex-wrap items-center gap-2 mb-1.5">
               <p class="stamp text-xs text-ink/45 uppercase tracking-wider">Ağustos 2023 &middot; 18 gün</p>
-              <p class="text-ink font-semibold mt-1.5">YAPITPLUS <span class="text-ink/55 font-normal">— Folkart NOVA</span></p>
-              <p class="text-ink/55 text-sm mt-1">Kaba işleri üstlenici firma şantiye stajı.</p>
+              <span class="text-[0.62rem] font-semibold uppercase tracking-widest bg-stone/12 text-stone px-2.5 py-0.5 rounded-full">İnşaat</span>
             </div>
-          </li>
-          <li class="reveal relative">
-            <span class="absolute -left-[27px] top-6 w-2.5 h-2.5 rounded-full bg-stone ring-4 ring-cream"></span>
-            <div class="glass rounded-xl px-5 py-4">
+            <p class="text-ink font-semibold">YAPITPLUS <span class="text-ink/55 font-normal">— Folkart NOVA</span></p>
+            <p class="text-ink/55 text-sm mt-1">Kaba işleri üstlenici firma şantiye stajı.</p>
+          </div>
+        </li>
+        <li class="reveal relative">
+          <span class="absolute -left-[27px] top-6 w-2.5 h-2.5 rounded-full bg-stone ring-4 ring-cream"></span>
+          <div class="glass rounded-xl px-5 py-4">
+            <div class="flex flex-wrap items-center gap-2 mb-1.5">
               <p class="stamp text-xs text-ink/45 uppercase tracking-wider">Temmuz 2024 &middot; 10 gün</p>
-              <p class="text-ink font-semibold mt-1.5">DÜLGER İNŞAAT <span class="text-ink/55 font-normal">— ESBAŞ</span></p>
-              <p class="text-ink/55 text-sm mt-1">ESBAŞ Precast Fabrika Projesi şantiye stajı.</p>
+              <span class="text-[0.62rem] font-semibold uppercase tracking-widest bg-stone/12 text-stone px-2.5 py-0.5 rounded-full">İnşaat</span>
             </div>
-          </li>
-          <li class="reveal relative">
-            <span class="absolute -left-[27px] top-6 w-2.5 h-2.5 rounded-full bg-stone ring-4 ring-cream"></span>
-            <div class="glass rounded-xl px-5 py-4">
+            <p class="text-ink font-semibold">DÜLGER İNŞAAT <span class="text-ink/55 font-normal">— ESBAŞ</span></p>
+            <p class="text-ink/55 text-sm mt-1">ESBAŞ Precast Fabrika Projesi şantiye stajı.</p>
+          </div>
+        </li>
+        <li class="reveal relative">
+          <span class="absolute -left-[27px] top-6 w-2.5 h-2.5 rounded-full bg-stone ring-4 ring-cream"></span>
+          <div class="glass rounded-xl px-5 py-4">
+            <div class="flex flex-wrap items-center gap-2 mb-1.5">
               <p class="stamp text-xs text-ink/45 uppercase tracking-wider">Ağustos 2024 &middot; 12 gün</p>
-              <p class="text-ink font-semibold mt-1.5">ENKA <span class="text-ink/55 font-normal">— Kırklareli Elektrik Santrali</span></p>
-              <p class="text-ink/55 text-sm mt-1">850 MW Doğal Gaz Kombine Çevrim Santrali Projesi şantiye stajı.</p>
+              <span class="text-[0.62rem] font-semibold uppercase tracking-widest bg-stone/12 text-stone px-2.5 py-0.5 rounded-full">İnşaat</span>
             </div>
-          </li>
-          <li class="reveal relative">
-            <span class="absolute -left-[27px] top-6 w-2.5 h-2.5 rounded-full bg-stone ring-4 ring-cream"></span>
-            <div class="glass rounded-xl px-5 py-4">
+            <p class="text-ink font-semibold">ENKA <span class="text-ink/55 font-normal">— Kırklareli Elektrik Santrali</span></p>
+            <p class="text-ink/55 text-sm mt-1">850 MW Doğal Gaz Kombine Çevrim Santrali Projesi şantiye stajı.</p>
+          </div>
+        </li>
+        <li class="reveal relative">
+          <span class="absolute -left-[27px] top-6 w-2.5 h-2.5 rounded-full bg-stone ring-4 ring-cream"></span>
+          <div class="glass rounded-xl px-5 py-4">
+            <div class="flex flex-wrap items-center gap-2 mb-1.5">
               <p class="stamp text-xs text-ink/45 uppercase tracking-wider">Temmuz 2025 &middot; 15 gün</p>
-              <p class="text-ink font-semibold mt-1.5">EPSILON Proje</p>
-              <p class="text-ink/55 text-sm mt-1">Yüksek katlı ve villa tipi binanın modelleme ve proje yürütme ofis stajı.</p>
+              <span class="text-[0.62rem] font-semibold uppercase tracking-widest bg-stone/12 text-stone px-2.5 py-0.5 rounded-full">İnşaat</span>
             </div>
-          </li>
-        </ol>
-      </div>
+            <p class="text-ink font-semibold">EPSILON Proje</p>
+            <p class="text-ink/55 text-sm mt-1">Yüksek katlı ve villa tipi binanın modelleme ve proje yürütme ofis stajı.</p>
+          </div>
+        </li>
+        <li class="reveal relative">
+          <span class="absolute -left-[27px] top-6 w-2.5 h-2.5 rounded-full bg-violet ring-4 ring-cream"></span>
+          <div class="glass glass-accent rounded-xl px-5 py-4">
+            <div class="flex flex-wrap items-center gap-2 mb-1.5">
+              <p class="stamp text-xs text-ink/45 uppercase tracking-wider">Temmuz&ndash;Ağustos 2026 &middot; 25 gün</p>
+              <span class="text-[0.62rem] font-semibold uppercase tracking-widest bg-violet/12 text-violet px-2.5 py-0.5 rounded-full">Maden</span>
+              <span class="text-[0.62rem] font-semibold uppercase tracking-widest bg-ink/8 text-ink/55 px-2.5 py-0.5 rounded-full">Şu An</span>
+            </div>
+            <p class="text-ink font-semibold">TÜMAD <span class="text-ink/55 font-normal">— Lapseki Altın Madeni</span></p>
+            <p class="text-ink/55 text-sm mt-1">Yeraltı maden stajı.</p>
+          </div>
+        </li>
+      </ol>
 
-      <div>
-        <h3 class="reveal text-sm font-semibold uppercase tracking-[0.16em] text-violet mb-7 pb-3 border-b border-violet/25">Maden Stajları</h3>
-        <ol class="space-y-6 border-l border-ink/12 pl-6">
-          <li class="reveal relative">
-            <span class="absolute -left-[27px] top-6 w-2.5 h-2.5 rounded-full bg-violet ring-4 ring-cream"></span>
-            <div class="glass glass-accent rounded-xl px-5 py-4">
-              <div class="flex flex-wrap items-center gap-2">
-                <p class="stamp text-xs text-ink/45 uppercase tracking-wider">Temmuz&ndash;Ağustos 2026 &middot; 25 gün</p>
-                <span class="text-[0.65rem] font-semibold uppercase tracking-widest bg-violet/12 text-violet px-2.5 py-0.5 rounded-full">Şu An</span>
-              </div>
-              <p class="text-ink font-semibold mt-1.5">TÜMAD <span class="text-ink/55 font-normal">— Lapseki Altın Madeni</span></p>
-              <p class="text-ink/55 text-sm mt-1">Yeraltı maden stajı.</p>
-            </div>
-          </li>
-        </ol>
+      <div class="reveal glass rounded-2xl p-8 self-start">
+        <span class="text-xs uppercase tracking-wider text-ink/40">Saha Deneyimi Özeti</span>
+        <div class="grid grid-cols-3 divide-x divide-ink/10 mt-5 text-center">
+          <div class="px-1">
+            <span class="block text-3xl font-bold text-ink">5</span>
+            <span class="block text-[0.65rem] text-ink/45 uppercase tracking-wider mt-1">Staj</span>
+          </div>
+          <div class="px-1">
+            <span class="block text-3xl font-bold text-ink">80</span>
+            <span class="block text-[0.65rem] text-ink/45 uppercase tracking-wider mt-1">Saha Günü</span>
+          </div>
+          <div class="px-1">
+            <span class="block text-3xl font-bold text-ink">2</span>
+            <span class="block text-[0.65rem] text-ink/45 uppercase tracking-wider mt-1">Disiplin</span>
+          </div>
+        </div>
+
+        <div class="mt-7 pt-6 border-t border-ink/10">
+          <div class="flex justify-between text-[0.65rem] font-semibold uppercase tracking-wider mb-2">
+            <span class="text-stone">İnşaat &middot; 55 gün</span>
+            <span class="text-violet">Maden &middot; 25 gün</span>
+          </div>
+          <div class="h-2 rounded-full overflow-hidden flex bg-ink/8">
+            <span class="bg-stone" style="width:68.75%"></span>
+            <span class="bg-violet" style="width:31.25%"></span>
+          </div>
+        </div>
+
+        <div class="mt-6 pt-6 border-t border-ink/10 flex items-center gap-3">
+          <span class="relative flex h-2.5 w-2.5 shrink-0">
+            <span class="absolute inline-flex h-full w-full rounded-full bg-violet opacity-60"></span>
+            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-violet"></span>
+          </span>
+          <div>
+            <p class="text-[0.65rem] uppercase tracking-wider text-ink/40">Şu An Sahada</p>
+            <p class="text-sm text-ink font-medium mt-0.5">TÜMAD — Lapseki Altın Madeni</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -730,7 +790,7 @@
 <!-- PROJELER -->
 <section id="projeler" class="relative z-10 py-28 md:py-40 bg-soft/92">
   <div class="max-w-6xl mx-auto px-6">
-    <p class="reveal eyebrow mb-4">Projeler &amp; Akademik Çalışmalar</p>
+    <p class="reveal eyebrow mb-4 flex items-center gap-3"><span class="sheet-tag">04 / 08</span>Projeler &amp; Akademik Çalışmalar</p>
     <h2 class="reveal font-sans font-bold text-3xl md:text-5xl tracking-tight text-ink mb-16">Projeler &amp; Tez Çalışmaları</h2>
 
     <div class="space-y-8">
@@ -817,10 +877,31 @@
 
 <div class="relative z-10"><div class="max-w-6xl mx-auto px-6"><div class="divider-line" aria-hidden="true"></div></div></div>
 
+<!-- BAŞARILAR -->
+<section id="basarilar" class="relative z-10 py-28 md:py-40 bg-cream/92">
+  <div class="max-w-6xl mx-auto px-6">
+    <p class="reveal eyebrow mb-4 flex items-center gap-3"><span class="sheet-tag">05 / 08</span>Başarılar</p>
+    <h2 class="reveal font-sans font-bold text-3xl md:text-5xl tracking-tight text-ink mb-16">Başarılar</h2>
+
+    <div class="reveal glass rounded-2xl p-8 md:p-11 flex flex-col md:flex-row md:items-center gap-8">
+      <div class="shrink-0 w-16 h-16 rounded-2xl bg-violet/12 flex items-center justify-center text-violet">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 18.75h-9m9 0a3 3 0 013 3h-15a3 3 0 013-3m9 0v-3.375c0-.621-.503-1.125-1.125-1.125h-.871M7.5 18.75v-3.375c0-.621.504-1.125 1.125-1.125h.872m5.007 0H9.497m5.007 0a7.454 7.454 0 01-.982-3.172M9.497 14.25a7.454 7.454 0 00.981-3.172M5.25 4.236c-.982.143-1.954.317-2.916.52A6.003 6.003 0 007.73 9.728M5.25 4.236V4.5c0 2.108.966 3.99 2.48 5.228M5.25 4.236V2.721C7.456 2.41 9.71 2.25 12 2.25c2.29 0 4.544.16 6.75.47v1.516M7.73 9.728a6.726 6.726 0 002.748 1.35m8.272-6.842V4.5c0 2.108-.966 3.99-2.48 5.228m2.48-5.492a46.32 46.32 0 012.916.52 6.003 6.003 0 01-5.395 4.972m0 0a6.726 6.726 0 01-2.749 1.35m0 0a6.772 6.772 0 01-3.044 0" /></svg>
+      </div>
+      <div>
+        <span class="text-violet text-xs font-semibold uppercase tracking-[0.16em]">Tasarım Yarışması &middot; Türkiye Geneli İlk 10</span>
+        <h3 class="text-xl md:text-2xl font-semibold text-ink mt-3">Bir Düşün Sen — Millî Ulaşım Teknolojilerine Yönelik Tasarım Yarışması</h3>
+        <p class="text-ink/55 text-sm mt-3 leading-relaxed max-w-2xl">Türkiye genelinde ilk 10 dereceye girildi <span class="text-ink/40">(ortaokul düzeyinde tamamlanmıştır)</span>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="relative z-10"><div class="max-w-6xl mx-auto px-6"><div class="divider-line" aria-hidden="true"></div></div></div>
+
 <!-- ILGI ALANLARI -->
 <section id="ilgi" class="relative z-10 py-28 md:py-40 bg-soft/92">
   <div class="max-w-6xl mx-auto px-6">
-    <p class="reveal eyebrow mb-10">İlgi Alanları &amp; Dil</p>
+    <p class="reveal eyebrow mb-10 flex items-center gap-3"><span class="sheet-tag">06 / 08</span>İlgi Alanları &amp; Dil</p>
 
     <div class="grid md:grid-cols-2 gap-10">
       <div class="reveal">
@@ -866,7 +947,7 @@
 <!-- REFERANSLAR -->
 <section id="referanslar" class="relative z-10 py-28 md:py-40 bg-cream/92">
   <div class="max-w-6xl mx-auto px-6">
-    <p class="reveal eyebrow mb-4">Referanslar</p>
+    <p class="reveal eyebrow mb-4 flex items-center gap-3"><span class="sheet-tag">07 / 08</span>Referanslar</p>
     <h2 class="reveal font-sans font-bold text-3xl md:text-5xl tracking-tight text-ink mb-16">Referanslar</h2>
 
     <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
@@ -894,7 +975,7 @@
 <!-- ILETISIM / FOOTER -->
 <footer id="iletisim" class="relative z-10 pt-28 pb-10 bg-soft/92 overflow-hidden">
   <div class="relative max-w-6xl mx-auto px-6">
-    <p class="reveal eyebrow mb-4">İletişim</p>
+    <p class="reveal eyebrow mb-4 flex items-center gap-3"><span class="sheet-tag">08 / 08</span>İletişim</p>
 
     <div class="grid md:grid-cols-[1.2fr_1fr] gap-14 items-start">
       <div class="reveal">
@@ -917,7 +998,7 @@
           </li>
           <li class="flex items-start gap-3">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-violet shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" /></svg>
-            <span class="text-ink">Çamlıkule Mah. 242/39 Sok. No: 2/B Kat: 5 Daire: 21<br>Buca / İZMİR</span>
+            <span class="text-ink">İzmir, Türkiye</span>
           </li>
         </ul>
       </div>
