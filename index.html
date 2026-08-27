@@ -194,6 +194,37 @@
   .divider-line--sub { background: linear-gradient(to right, transparent, rgba(36,26,54,0.12) 10%, rgba(36,26,54,0.12) 90%, transparent); }
   .divider-line--sub::before { width: 5px; height: 5px; background: rgba(110,102,86,0.45); }
 
+  /* Frosted "glass" card surface — replaces the old flat, opaque card fills so the
+     scroll-built emblem / topo art keeps reading faintly through a blur instead of
+     being fully blocked out. Used on every content card (CV, staj, projeler, referanslar). */
+  .glass {
+    background: linear-gradient(165deg, rgba(255,253,246,0.68), rgba(255,253,246,0.4));
+    backdrop-filter: blur(22px) saturate(160%);
+    -webkit-backdrop-filter: blur(22px) saturate(160%);
+    border: 1px solid rgba(255,255,255,0.6);
+    box-shadow: inset 0 1px 0 0 rgba(255,255,255,0.55), 0 1px 0 0 rgba(36,26,54,0.03), 0 20px 44px -22px rgba(107,70,196,0.28);
+  }
+  .glass-accent { border-color: rgba(107,70,196,0.3); }
+  .glass-violet {
+    background: linear-gradient(165deg, rgba(126,90,214,0.9), rgba(74,44,145,0.86));
+    backdrop-filter: blur(22px) saturate(160%);
+    -webkit-backdrop-filter: blur(22px) saturate(160%);
+    border: 1px solid rgba(255,255,255,0.22);
+    box-shadow: inset 0 1px 0 0 rgba(255,255,255,0.28), 0 20px 44px -22px rgba(107,70,196,0.5);
+  }
+  @media (max-width: 640px) {
+    .glass, .glass-violet { backdrop-filter: blur(14px) saturate(150%); -webkit-backdrop-filter: blur(14px) saturate(150%); }
+  }
+  /* Denser glass for modal panels sitting over a dark scrim — .glass's usual opacity lets
+     the dark backdrop tint it grey, so this stays closer to opaque while keeping the blur. */
+  .glass-modal {
+    background: linear-gradient(165deg, rgba(255,253,246,0.94), rgba(255,253,246,0.86));
+    backdrop-filter: blur(26px) saturate(160%);
+    -webkit-backdrop-filter: blur(26px) saturate(160%);
+    border: 1px solid rgba(255,255,255,0.75);
+    box-shadow: inset 0 1px 0 0 rgba(255,255,255,0.65), 0 25px 60px -20px rgba(36,26,54,0.4);
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .cv-row-track { transform: none !important; }
   }
@@ -458,7 +489,7 @@
         </p>
       </div>
 
-      <div class="reveal rounded-2xl bg-surface shadow-card border border-ink/8 overflow-hidden self-start">
+      <div class="reveal rounded-2xl glass overflow-hidden self-start">
         <dl class="divide-y divide-ink/8">
           <div class="grid grid-cols-[auto_1fr] gap-4 px-6 py-4">
             <dt class="text-xs uppercase tracking-wider text-ink/40 pt-0.5">Ad Soyad</dt>
@@ -496,13 +527,13 @@
     <p class="reveal text-ink/65 max-w-2xl mb-16 text-lg leading-relaxed">İki mühendislik disiplininin eş zamanlı yürütüldüğü akademik program ve bu programı destekleyen yazılım/teknik beceriler.</p>
 
     <div class="grid md:grid-cols-2 gap-6 mb-24">
-      <div class="reveal rounded-2xl bg-surface shadow-card border border-ink/8 p-8">
+      <div class="reveal rounded-2xl glass p-8">
         <span class="text-stone text-xs font-semibold uppercase tracking-[0.16em]">Ana Dal</span>
         <h3 class="text-xl md:text-2xl font-semibold text-ink mt-3">İnşaat Mühendisliği</h3>
         <p class="text-ink/55 text-sm mt-2">İzmir Dokuz Eylül Üniversitesi</p>
         <p class="text-ink/55 text-sm mt-4 leading-relaxed">Yapısal analiz, betonarme tasarım ve deprem mühendisliği odaklı lisans eğitimi.</p>
       </div>
-      <div class="reveal rounded-2xl bg-surface shadow-card border border-ink/8 p-8">
+      <div class="reveal rounded-2xl glass p-8">
         <span class="text-violet text-xs font-semibold uppercase tracking-[0.16em]">Çift Anadal (ÇAP)</span>
         <h3 class="text-xl md:text-2xl font-semibold text-ink mt-3">Maden Mühendisliği</h3>
         <p class="text-ink/55 text-sm mt-2">İzmir Dokuz Eylül Üniversitesi</p>
@@ -523,19 +554,19 @@
         <p class="text-xs uppercase tracking-wider text-stone mb-4 font-semibold text-center md:text-left">Temel Mühendislik Yazılımları</p>
         <div class="cv-row-track relative">
           <div class="hscroll flex justify-center gap-5 overflow-x-auto snap-x snap-mandatory pb-2 w-full">
-            <div class="skill-card snap-start flex-none w-48 rounded-2xl bg-violet text-cream p-5 shadow-card">
+            <div class="skill-card snap-start flex-none w-48 rounded-2xl glass-violet text-cream p-5">
               <span class="block text-base font-semibold">AutoCAD</span>
               <span class="block text-xs text-cream/70 mt-1">2D/3D Çizim</span>
             </div>
-            <div class="skill-card snap-start flex-none w-48 rounded-2xl bg-violet text-cream p-5 shadow-card">
+            <div class="skill-card snap-start flex-none w-48 rounded-2xl glass-violet text-cream p-5">
               <span class="block text-base font-semibold">ETABS</span>
               <span class="block text-xs text-cream/70 mt-1">Yapısal Analiz</span>
             </div>
-            <div class="skill-card snap-start flex-none w-48 rounded-2xl bg-violet text-cream p-5 shadow-card">
+            <div class="skill-card snap-start flex-none w-48 rounded-2xl glass-violet text-cream p-5">
               <span class="block text-base font-semibold">SAP2000</span>
               <span class="block text-xs text-cream/70 mt-1">Yapısal Analiz</span>
             </div>
-            <div class="skill-card snap-start flex-none w-48 rounded-2xl bg-violet text-cream p-5 shadow-card">
+            <div class="skill-card snap-start flex-none w-48 rounded-2xl glass-violet text-cream p-5">
               <span class="block text-base font-semibold">Surpac</span>
               <span class="block text-xs text-cream/70 mt-1">Maden Modelleme</span>
             </div>
@@ -550,23 +581,23 @@
         <p class="text-xs uppercase tracking-wider text-ink/45 mb-4 font-semibold text-center md:text-left">Mühendislik &amp; Tasarım</p>
         <div class="cv-row-track relative">
           <div class="hscroll flex justify-center gap-5 overflow-x-auto snap-x snap-mandatory pb-2 w-full">
-            <div class="skill-card snap-start flex-none w-48 rounded-2xl bg-surface border border-ink/10 p-5 shadow-card">
+            <div class="skill-card snap-start flex-none w-48 rounded-2xl glass p-5">
               <span class="block text-base font-semibold text-ink">Ansys</span>
               <span class="block text-xs text-ink/50 mt-1">FEM Analizi</span>
             </div>
-            <div class="skill-card snap-start flex-none w-48 rounded-2xl bg-surface border border-ink/10 p-5 shadow-card">
+            <div class="skill-card snap-start flex-none w-48 rounded-2xl glass p-5">
               <span class="block text-base font-semibold text-ink">ideCAD</span>
               <span class="block text-xs text-ink/50 mt-1">Betonarme Tasarım</span>
             </div>
-            <div class="skill-card snap-start flex-none w-48 rounded-2xl bg-surface border border-ink/10 p-5 shadow-card">
+            <div class="skill-card snap-start flex-none w-48 rounded-2xl glass p-5">
               <span class="block text-base font-semibold text-ink">Revit</span>
               <span class="block text-xs text-ink/50 mt-1">BIM Modelleme</span>
             </div>
-            <div class="skill-card snap-start flex-none w-48 rounded-2xl bg-surface border border-ink/10 p-5 shadow-card">
+            <div class="skill-card snap-start flex-none w-48 rounded-2xl glass p-5">
               <span class="block text-base font-semibold text-ink">Micromine</span>
               <span class="block text-xs text-ink/50 mt-1">Maden Planlama</span>
             </div>
-            <div class="skill-card snap-start flex-none w-48 rounded-2xl bg-surface border border-ink/10 p-5 shadow-card">
+            <div class="skill-card snap-start flex-none w-48 rounded-2xl glass p-5">
               <span class="block text-base font-semibold text-ink">Surfer</span>
               <span class="block text-xs text-ink/50 mt-1">Kontur &amp; Yüzey</span>
             </div>
@@ -581,19 +612,19 @@
         <p class="text-xs uppercase tracking-wider text-ink/45 mb-4 font-semibold text-center md:text-left">Modelleme, Render &amp; Tasarım</p>
         <div class="cv-row-track relative">
           <div class="hscroll flex justify-center gap-5 overflow-x-auto snap-x snap-mandatory pb-2 w-full">
-            <div class="skill-card snap-start flex-none w-48 rounded-2xl bg-surface border border-ink/10 p-5 shadow-card">
+            <div class="skill-card snap-start flex-none w-48 rounded-2xl glass p-5">
               <span class="block text-base font-semibold text-ink">Blender</span>
               <span class="block text-xs text-ink/50 mt-1">3D Modelleme</span>
             </div>
-            <div class="skill-card snap-start flex-none w-48 rounded-2xl bg-surface border border-ink/10 p-5 shadow-card">
+            <div class="skill-card snap-start flex-none w-48 rounded-2xl glass p-5">
               <span class="block text-base font-semibold text-ink">Unreal Engine 5</span>
               <span class="block text-xs text-ink/50 mt-1">Gerçek Zamanlı Render</span>
             </div>
-            <div class="skill-card snap-start flex-none w-48 rounded-2xl bg-surface border border-ink/10 p-5 shadow-card">
+            <div class="skill-card snap-start flex-none w-48 rounded-2xl glass p-5">
               <span class="block text-base font-semibold text-ink">Profesyonel Çizim</span>
               <span class="block text-xs text-ink/50 mt-1">El ile Teknik Çizim</span>
             </div>
-            <div class="skill-card snap-start flex-none w-48 rounded-2xl bg-surface border border-ink/10 p-5 shadow-card">
+            <div class="skill-card snap-start flex-none w-48 rounded-2xl glass p-5">
               <span class="block text-base font-semibold text-ink">Dijital Tasarım</span>
               <span class="block text-xs text-ink/50 mt-1">Arayüz (UI) Tasarımı</span>
             </div>
@@ -608,15 +639,15 @@
         <p class="text-xs uppercase tracking-wider text-ink/45 mb-4 font-semibold text-center md:text-left">Ofis Araçları</p>
         <div class="relative">
           <div class="flex gap-5 w-full">
-            <div class="skill-card flex-1 rounded-2xl bg-surface border border-ink/10 p-5 shadow-card text-center md:text-left">
+            <div class="skill-card flex-1 rounded-2xl glass p-5 text-center md:text-left">
               <span class="block text-base font-semibold text-ink">Word</span>
               <span class="block text-xs text-ink/50 mt-1">Doküman</span>
             </div>
-            <div class="skill-card flex-1 rounded-2xl bg-surface border border-ink/10 p-5 shadow-card text-center md:text-left">
+            <div class="skill-card flex-1 rounded-2xl glass p-5 text-center md:text-left">
               <span class="block text-base font-semibold text-ink">Excel</span>
               <span class="block text-xs text-ink/50 mt-1">Hesap Tablosu</span>
             </div>
-            <div class="skill-card flex-1 rounded-2xl bg-surface border border-ink/10 p-5 shadow-card text-center md:text-left">
+            <div class="skill-card flex-1 rounded-2xl glass p-5 text-center md:text-left">
               <span class="block text-base font-semibold text-ink">PowerPoint</span>
               <span class="block text-xs text-ink/50 mt-1">Sunum</span>
             </div>
@@ -638,45 +669,55 @@
     <div class="grid md:grid-cols-2 gap-x-12 gap-y-16">
       <div>
         <h3 class="reveal text-sm font-semibold uppercase tracking-[0.16em] text-stone mb-7 pb-3 border-b border-stone/25">İnşaat Stajları</h3>
-        <ol class="space-y-9 border-l border-ink/12 pl-6">
+        <ol class="space-y-6 border-l border-ink/12 pl-6">
           <li class="reveal relative">
-            <span class="absolute -left-[27px] top-1 w-2.5 h-2.5 rounded-full bg-stone ring-4 ring-cream"></span>
-            <p class="stamp text-xs text-ink/45 uppercase tracking-wider">Ağustos 2023 &middot; 18 gün</p>
-            <p class="text-ink font-semibold mt-1.5">YAPITPLUS <span class="text-ink/55 font-normal">— Folkart NOVA</span></p>
-            <p class="text-ink/55 text-sm mt-1">Kaba işleri üstlenici firma şantiye stajı.</p>
+            <span class="absolute -left-[27px] top-6 w-2.5 h-2.5 rounded-full bg-stone ring-4 ring-cream"></span>
+            <div class="glass rounded-xl px-5 py-4">
+              <p class="stamp text-xs text-ink/45 uppercase tracking-wider">Ağustos 2023 &middot; 18 gün</p>
+              <p class="text-ink font-semibold mt-1.5">YAPITPLUS <span class="text-ink/55 font-normal">— Folkart NOVA</span></p>
+              <p class="text-ink/55 text-sm mt-1">Kaba işleri üstlenici firma şantiye stajı.</p>
+            </div>
           </li>
           <li class="reveal relative">
-            <span class="absolute -left-[27px] top-1 w-2.5 h-2.5 rounded-full bg-stone ring-4 ring-cream"></span>
-            <p class="stamp text-xs text-ink/45 uppercase tracking-wider">Temmuz 2024 &middot; 10 gün</p>
-            <p class="text-ink font-semibold mt-1.5">DÜLGER İNŞAAT <span class="text-ink/55 font-normal">— ESBAŞ</span></p>
-            <p class="text-ink/55 text-sm mt-1">ESBAŞ Precast Fabrika Projesi şantiye stajı.</p>
+            <span class="absolute -left-[27px] top-6 w-2.5 h-2.5 rounded-full bg-stone ring-4 ring-cream"></span>
+            <div class="glass rounded-xl px-5 py-4">
+              <p class="stamp text-xs text-ink/45 uppercase tracking-wider">Temmuz 2024 &middot; 10 gün</p>
+              <p class="text-ink font-semibold mt-1.5">DÜLGER İNŞAAT <span class="text-ink/55 font-normal">— ESBAŞ</span></p>
+              <p class="text-ink/55 text-sm mt-1">ESBAŞ Precast Fabrika Projesi şantiye stajı.</p>
+            </div>
           </li>
           <li class="reveal relative">
-            <span class="absolute -left-[27px] top-1 w-2.5 h-2.5 rounded-full bg-stone ring-4 ring-cream"></span>
-            <p class="stamp text-xs text-ink/45 uppercase tracking-wider">Ağustos 2024 &middot; 12 gün</p>
-            <p class="text-ink font-semibold mt-1.5">ENKA <span class="text-ink/55 font-normal">— Kırklareli Elektrik Santrali</span></p>
-            <p class="text-ink/55 text-sm mt-1">850 MW Doğal Gaz Kombine Çevrim Santrali Projesi şantiye stajı.</p>
+            <span class="absolute -left-[27px] top-6 w-2.5 h-2.5 rounded-full bg-stone ring-4 ring-cream"></span>
+            <div class="glass rounded-xl px-5 py-4">
+              <p class="stamp text-xs text-ink/45 uppercase tracking-wider">Ağustos 2024 &middot; 12 gün</p>
+              <p class="text-ink font-semibold mt-1.5">ENKA <span class="text-ink/55 font-normal">— Kırklareli Elektrik Santrali</span></p>
+              <p class="text-ink/55 text-sm mt-1">850 MW Doğal Gaz Kombine Çevrim Santrali Projesi şantiye stajı.</p>
+            </div>
           </li>
           <li class="reveal relative">
-            <span class="absolute -left-[27px] top-1 w-2.5 h-2.5 rounded-full bg-stone ring-4 ring-cream"></span>
-            <p class="stamp text-xs text-ink/45 uppercase tracking-wider">Temmuz 2025 &middot; 15 gün</p>
-            <p class="text-ink font-semibold mt-1.5">EPSILON Proje</p>
-            <p class="text-ink/55 text-sm mt-1">Yüksek katlı ve villa tipi binanın modelleme ve proje yürütme ofis stajı.</p>
+            <span class="absolute -left-[27px] top-6 w-2.5 h-2.5 rounded-full bg-stone ring-4 ring-cream"></span>
+            <div class="glass rounded-xl px-5 py-4">
+              <p class="stamp text-xs text-ink/45 uppercase tracking-wider">Temmuz 2025 &middot; 15 gün</p>
+              <p class="text-ink font-semibold mt-1.5">EPSILON Proje</p>
+              <p class="text-ink/55 text-sm mt-1">Yüksek katlı ve villa tipi binanın modelleme ve proje yürütme ofis stajı.</p>
+            </div>
           </li>
         </ol>
       </div>
 
       <div>
         <h3 class="reveal text-sm font-semibold uppercase tracking-[0.16em] text-violet mb-7 pb-3 border-b border-violet/25">Maden Stajları</h3>
-        <ol class="space-y-9 border-l border-ink/12 pl-6">
+        <ol class="space-y-6 border-l border-ink/12 pl-6">
           <li class="reveal relative">
-            <span class="absolute -left-[27px] top-1 w-2.5 h-2.5 rounded-full bg-violet ring-4 ring-cream"></span>
-            <div class="flex flex-wrap items-center gap-2">
-              <p class="stamp text-xs text-ink/45 uppercase tracking-wider">Temmuz&ndash;Ağustos 2026 &middot; 25 gün</p>
-              <span class="text-[0.65rem] font-semibold uppercase tracking-widest bg-violet/12 text-violet px-2.5 py-0.5 rounded-full">Şu An</span>
+            <span class="absolute -left-[27px] top-6 w-2.5 h-2.5 rounded-full bg-violet ring-4 ring-cream"></span>
+            <div class="glass glass-accent rounded-xl px-5 py-4">
+              <div class="flex flex-wrap items-center gap-2">
+                <p class="stamp text-xs text-ink/45 uppercase tracking-wider">Temmuz&ndash;Ağustos 2026 &middot; 25 gün</p>
+                <span class="text-[0.65rem] font-semibold uppercase tracking-widest bg-violet/12 text-violet px-2.5 py-0.5 rounded-full">Şu An</span>
+              </div>
+              <p class="text-ink font-semibold mt-1.5">TÜMAD <span class="text-ink/55 font-normal">— Lapseki Altın Madeni</span></p>
+              <p class="text-ink/55 text-sm mt-1">Yeraltı maden stajı.</p>
             </div>
-            <p class="text-ink font-semibold mt-1.5">TÜMAD <span class="text-ink/55 font-normal">— Lapseki Altın Madeni</span></p>
-            <p class="text-ink/55 text-sm mt-1">Yeraltı maden stajı.</p>
           </li>
         </ol>
       </div>
@@ -694,7 +735,7 @@
 
     <div class="space-y-8">
       <!-- Yapisal Project -->
-      <div class="reveal poster-card group rounded-2xl bg-surface shadow-card border border-ink/8 overflow-hidden cursor-pointer transition-shadow hover:shadow-glow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet/70" role="button" tabindex="0" data-poster-trigger="insaat" aria-haspopup="dialog" aria-label="6 Katlı Betonarme Ofis Binası posterini büyük boyutta görüntüle">
+      <div class="reveal poster-card group rounded-2xl glass overflow-hidden cursor-pointer transition-shadow hover:shadow-glow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet/70" role="button" tabindex="0" data-poster-trigger="insaat" aria-haspopup="dialog" aria-label="6 Katlı Betonarme Ofis Binası posterini büyük boyutta görüntüle">
         <div class="grid md:grid-cols-[1fr_auto] gap-8 p-8 md:p-11">
           <div>
             <span class="text-stone text-xs font-semibold uppercase tracking-[0.16em]">Yapısal &middot; Bitirme Projesi</span>
@@ -738,7 +779,7 @@
       </div>
 
       <!-- Maden Tezi -->
-      <div class="reveal poster-card group rounded-2xl bg-surface shadow-card border border-ink/8 overflow-hidden cursor-pointer transition-shadow hover:shadow-glow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet/70" role="button" tabindex="0" data-poster-trigger="maden" aria-haspopup="dialog" aria-label="Şev Stabilitesi tez posterini büyük boyutta görüntüle">
+      <div class="reveal poster-card group rounded-2xl glass overflow-hidden cursor-pointer transition-shadow hover:shadow-glow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet/70" role="button" tabindex="0" data-poster-trigger="maden" aria-haspopup="dialog" aria-label="Şev Stabilitesi tez posterini büyük boyutta görüntüle">
         <div class="grid md:grid-cols-[1fr_auto] gap-8 p-8 md:p-11">
           <div>
             <span class="text-violet text-xs font-semibold uppercase tracking-[0.16em]">Maden &middot; Bitirme Tezi</span>
@@ -785,11 +826,11 @@
       <div class="reveal">
         <h2 class="font-sans font-bold text-2xl md:text-3xl tracking-tight text-ink mb-6">İlgi Alanları</h2>
         <div class="space-y-3">
-          <div class="flex items-center gap-3 rounded-xl bg-surface border border-ink/8 px-5 py-4">
+          <div class="flex items-center gap-3 rounded-xl glass px-5 py-4">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-violet shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.042 21.672L13.684 16.6m0 0l-2.51 2.225.569-9.47 5.227 7.917-3.286-.672zM12 2.25V4.5m5.834.166l-1.591 1.591M20.25 10.5H18M7.757 14.743l-1.59 1.59M6 10.5H3.75m4.007-4.243l-1.59-1.59" /></svg>
             <span class="text-ink text-sm">Çizim ve Tasarım <span class="text-ink/50">(Web-Arayüz Tasarımı)</span></span>
           </div>
-          <div class="flex items-center gap-3 rounded-xl bg-surface border border-ink/8 px-5 py-4">
+          <div class="flex items-center gap-3 rounded-xl glass px-5 py-4">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-violet shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 9l10.5-3m-10.5 3v10.5a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V10.5a2.25 2.25 0 012.25-2.25h.75m10.5-3l-10.5 3m10.5-3v10.5a2.25 2.25 0 002.25 2.25h.75a2.25 2.25 0 002.25-2.25V6.75" /></svg>
             <span class="text-ink text-sm">Müzik <span class="text-ink/50">(Gitar ve Ney)</span></span>
           </div>
@@ -798,7 +839,7 @@
 
       <div class="reveal">
         <h2 class="font-sans font-bold text-2xl md:text-3xl tracking-tight text-ink mb-6">Yabancı Dil</h2>
-        <div class="rounded-xl bg-surface border border-ink/8 px-6 py-6">
+        <div class="rounded-xl glass px-6 py-6">
           <div class="flex items-baseline justify-between mb-3">
             <span class="text-ink font-medium">İngilizce</span>
             <span class="text-xs text-violet uppercase tracking-widest font-semibold">A2 &middot; Temel</span>
@@ -829,17 +870,17 @@
     <h2 class="reveal font-sans font-bold text-3xl md:text-5xl tracking-tight text-ink mb-16">Referanslar</h2>
 
     <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
-      <div class="reveal rounded-2xl bg-surface shadow-card border border-ink/8 p-7">
+      <div class="reveal rounded-2xl glass p-7">
         <div class="w-11 h-11 rounded-full bg-violet/12 flex items-center justify-center text-violet text-sm font-semibold mb-4">OA</div>
         <p class="text-ink font-medium">Prof. Dr. Okay AKSOY</p>
         <p class="text-ink/50 text-sm mt-1">DEÜ Maden Mühendisliği</p>
       </div>
-      <div class="reveal rounded-2xl bg-surface shadow-card border border-ink/8 p-7">
+      <div class="reveal rounded-2xl glass p-7">
         <div class="w-11 h-11 rounded-full bg-violet/12 flex items-center justify-center text-violet text-sm font-semibold mb-4">KK</div>
         <p class="text-ink font-medium">Prof. Dr. Kerim KÜÇÜK</p>
         <p class="text-ink/50 text-sm mt-1">DEÜ Maden Mühendisliği</p>
       </div>
-      <div class="reveal rounded-2xl bg-surface shadow-card border border-ink/8 p-7">
+      <div class="reveal rounded-2xl glass p-7">
         <div class="w-11 h-11 rounded-full bg-stone/15 flex items-center justify-center text-stone text-sm font-semibold mb-4">HÇ</div>
         <p class="text-ink font-medium">Prof. Dr. Hikmet ÇATAL</p>
         <p class="text-ink/50 text-sm mt-1">DEÜ İnşaat Mühendisliği</p>
@@ -881,7 +922,7 @@
         </ul>
       </div>
 
-      <div class="reveal card-glow rounded-2xl bg-surface shadow-card p-9 flex flex-col items-center text-center border border-violet/15">
+      <div class="reveal card-glow rounded-2xl glass glass-accent p-9 flex flex-col items-center text-center">
         <p class="signature text-4xl text-violet">Ahmet Kağan Türkmen</p>
         <svg class="signature-swash -mt-2 w-40 h-3 text-violet/50" viewBox="0 0 150 10" fill="none" aria-hidden="true"><path d="M2 6c17-5 30 3 48-1s28-6 45-1 33 4 53-2" stroke-width="1.3" stroke-linecap="round"/></svg>
         <p class="text-xs uppercase tracking-[0.2em] text-ink/50 mt-5">Emniyetli &middot; Ekonomik &middot; Estetik</p>
@@ -936,7 +977,7 @@
   <div id="contact-modal-backdrop" class="absolute inset-0 bg-ink/50 backdrop-blur-sm opacity-0 transition-opacity duration-300"></div>
 
   <div class="relative min-h-full flex items-center justify-center p-4 md:p-6">
-    <div id="contact-modal-panel" class="relative w-full max-w-lg bg-surface rounded-3xl shadow-card border border-ink/8 p-8 md:p-10 opacity-0 scale-95 translate-y-3 transition-all duration-300">
+    <div id="contact-modal-panel" class="relative w-full max-w-lg glass-modal rounded-3xl p-8 md:p-10 opacity-0 scale-95 translate-y-3 transition-all duration-300">
       <button type="button" id="contact-modal-close" aria-label="Kapat" class="absolute top-5 right-5 text-ink/40 hover:text-ink transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet/70 rounded-full p-1.5">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
       </button>
