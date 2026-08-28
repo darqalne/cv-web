@@ -82,19 +82,20 @@
     background-size: 100% auto;
     background-repeat: repeat-y;
     display: none;
+    /* Eased fade, not a hard hold-then-cut: full strength only right at the outer/screen
+       edge, already well softened by the midpoint, and fully gone before the inner edge
+       ever nears the content column — so it never reads as "reaching toward" the page center. */
+    -webkit-mask-image: linear-gradient(to right, #000 0%, rgba(0,0,0,0.85) 10%, rgba(0,0,0,0.32) 45%, transparent 75%);
+    mask-image: linear-gradient(to right, #000 0%, rgba(0,0,0,0.85) 10%, rgba(0,0,0,0.32) 45%, transparent 75%);
   }
   .topo-edge-left {
     left: 0;
     background-position: top left;
-    -webkit-mask-image: linear-gradient(to right, #000 0%, #000 20%, transparent 100%);
-    mask-image: linear-gradient(to right, #000 0%, #000 20%, transparent 100%);
   }
   .topo-edge-right {
     right: 0;
     background-position: top right;
     transform: scaleX(-1);
-    -webkit-mask-image: linear-gradient(to right, #000 0%, #000 20%, transparent 100%);
-    mask-image: linear-gradient(to right, #000 0%, #000 20%, transparent 100%);
   }
   @media (min-width: 1250px) {
     .topo-edge { display: block; }
