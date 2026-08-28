@@ -58,12 +58,13 @@
   }
   .float-anim { animation: float-y 6s ease-in-out infinite; }
 
-  /* Topographic contour-line margins — a single relief-texture image (docs/izohips-edge.webp),
-     mirrored on the right side. Each side is a flat 10% of the viewport width (20% combined),
-     leaving the middle ~80% for content. position:absolute with no positioned ancestor +
+  /* Topographic contour-line margins — a single relief-texture image (docs/izohips-edge.webp,
+     white-balanced so its paper tone multiplies away to nothing and only the shadow/contour
+     lines actually darken the page), mirrored on the right side. Each side is 13vw wide,
+     leaving the middle for content. position:absolute with no positioned ancestor +
      top:0;bottom:0 spans the full scrollable document height (not just the viewport), so the
      art scrolls past with the page instead of staying pinned. It's a finite image, so it tiles
-     down that height (background-size:100% auto keeps the tile's width locked to the panel and
+     down that height (background-size locks the tile's width as a multiple of the panel and
      its aspect ratio intact, repeat-y stacks copies) rather than being stretched to fit, which
      is what caused the earlier "squeezed" look. The inner edge (toward the content) is a mask
      fade, never a hard clipped rectangle, so the art dissolves into the page — and stays behind
@@ -73,20 +74,19 @@
     position: absolute;
     top: 0;
     bottom: 0;
-    width: 10vw;
+    width: 13vw;
     z-index: 1;
     pointer-events: none;
     mix-blend-mode: multiply;
     opacity: 0.55;
     background-image: url('docs/izohips-edge.webp');
-    background-size: 250% auto;
+    background-size: 375% auto;
     background-repeat: repeat-y;
     display: none;
-    /* Holds fully solid across 90% of the box, then eases out only in the last 10% — a short,
-       gradual multi-stop fade (not one sharp cutoff) so the inner edge dissolves smoothly
-       instead of reading as a hard line. */
-    -webkit-mask-image: linear-gradient(to right, #000 0%, #000 90%, rgba(0,0,0,0.6) 94%, rgba(0,0,0,0.25) 97%, transparent 100%);
-    mask-image: linear-gradient(to right, #000 0%, #000 90%, rgba(0,0,0,0.6) 94%, rgba(0,0,0,0.25) 97%, transparent 100%);
+    /* Long, gradual multi-stop fade across the inner ~35% of the box — soft enough that the
+       dissolve into the page is never perceived as a line. */
+    -webkit-mask-image: linear-gradient(to right, #000 0%, #000 65%, rgba(0,0,0,0.75) 78%, rgba(0,0,0,0.4) 90%, transparent 100%);
+    mask-image: linear-gradient(to right, #000 0%, #000 65%, rgba(0,0,0,0.75) 78%, rgba(0,0,0,0.4) 90%, transparent 100%);
   }
   .topo-edge-left {
     left: 0;
