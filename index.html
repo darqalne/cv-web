@@ -59,13 +59,13 @@
   .float-anim { animation: float-y 6s ease-in-out infinite; }
 
   /* Topographic contour-line margins — a single relief-texture image (docs/izohips-edge.webp),
-     mirrored on the right side, filling the empty gutters outside the max-w-6xl content
-     column on wide viewports. position:absolute with no positioned ancestor + top:0;bottom:0
-     spans the full scrollable document height (not just the viewport), so the art scrolls
-     past with the page instead of staying pinned. It's a finite image, so it tiles down that
-     height (background-size:100% auto keeps the tile's width locked to the panel and its
-     aspect ratio intact, repeat-y stacks copies) rather than being stretched to fit, which is
-     what caused the earlier "squeezed" look. The inner edge (toward the content) is a mask
+     mirrored on the right side. Each side is a flat 10% of the viewport width (20% combined),
+     leaving the middle ~80% for content. position:absolute with no positioned ancestor +
+     top:0;bottom:0 spans the full scrollable document height (not just the viewport), so the
+     art scrolls past with the page instead of staying pinned. It's a finite image, so it tiles
+     down that height (background-size:100% auto keeps the tile's width locked to the panel and
+     its aspect ratio intact, repeat-y stacks copies) rather than being stretched to fit, which
+     is what caused the earlier "squeezed" look. The inner edge (toward the content) is a mask
      fade, never a hard clipped rectangle, so the art dissolves into the page — and stays behind
      the content/scroll-built emblem (z-[1], same layer as the emblem backdrop) instead of
      covering it. */
@@ -73,11 +73,11 @@
     position: absolute;
     top: 0;
     bottom: 0;
-    width: clamp(96px, calc((100vw - 1152px) * 0.32), 480px);
+    width: 10vw;
     z-index: 1;
     pointer-events: none;
     mix-blend-mode: multiply;
-    opacity: 0.22;
+    opacity: 0.36;
     background-image: url('docs/izohips-edge.webp');
     background-size: 100% auto;
     background-repeat: repeat-y;
