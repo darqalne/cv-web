@@ -78,19 +78,21 @@
     z-index: 1;
     pointer-events: none;
     mix-blend-mode: multiply;
-    opacity: 0.55;
+    opacity: 0.68;
     background-image: url('docs/izohips-edge.webp');
     background-size: 375% auto;
     background-repeat: repeat-y;
     display: none;
-    /* Long, gradual multi-stop fade across the inner ~35% of the box, PLUS three soft blurred
-       "bump" ellipses near the tail (baked into the same SVG, drawn after — so they lighten —
-       the base gradient) so a few contour patches naturally read a little further in than the
-       rest, instead of every point stopping at one perfectly straight line. Colour is kept as
-       constant black with only alpha varying throughout (matching the plain-gradient mask this
-       replaced), since that's the channel this mask is confirmed to key off. */
-    -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='820'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='0'><stop offset='0%25' stop-color='black'/><stop offset='58%25' stop-color='black'/><stop offset='72%25' stop-color='black' stop-opacity='0.68'/><stop offset='87%25' stop-color='black' stop-opacity='0.3'/><stop offset='100%25' stop-color='black' stop-opacity='0'/></linearGradient><filter id='b'><feGaussianBlur stdDeviation='24'/></filter></defs><rect width='300' height='820' fill='url(%23g)'/><ellipse cx='258' cy='140' rx='44' ry='80' fill='black' fill-opacity='0.5' filter='url(%23b)'/><ellipse cx='250' cy='420' rx='38' ry='70' fill='black' fill-opacity='0.35' filter='url(%23b)'/><ellipse cx='262' cy='640' rx='42' ry='75' fill='black' fill-opacity='0.45' filter='url(%23b)'/></svg>");
-    mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='820'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='0'><stop offset='0%25' stop-color='black'/><stop offset='58%25' stop-color='black'/><stop offset='72%25' stop-color='black' stop-opacity='0.68'/><stop offset='87%25' stop-color='black' stop-opacity='0.3'/><stop offset='100%25' stop-color='black' stop-opacity='0'/></linearGradient><filter id='b'><feGaussianBlur stdDeviation='24'/></filter></defs><rect width='300' height='820' fill='url(%23g)'/><ellipse cx='258' cy='140' rx='44' ry='80' fill='black' fill-opacity='0.5' filter='url(%23b)'/><ellipse cx='250' cy='420' rx='38' ry='70' fill='black' fill-opacity='0.35' filter='url(%23b)'/><ellipse cx='262' cy='640' rx='42' ry='75' fill='black' fill-opacity='0.45' filter='url(%23b)'/></svg>");
+    /* Long, gradual multi-stop fade across the inner ~40% of the box, PLUS three thin open
+       arc-strokes near the tail (baked into the same SVG, drawn after the base gradient so
+       they add extra local opacity) — drawn in the same wavy-contour-line style as the
+       decorative isohypse art used elsewhere on the page (see the "maden" project card icon),
+       each fading out along its own length via its own gradient stroke. This reads as a few
+       actual contour lines continuing a little further inward and dissolving naturally, rather
+       than every line stopping at one straight boundary. Colour is kept as constant black with
+       only alpha varying throughout, since that's the channel this mask is confirmed to key off. */
+    -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='820'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='0'><stop offset='0%25' stop-color='black'/><stop offset='58%25' stop-color='black'/><stop offset='72%25' stop-color='black' stop-opacity='0.68'/><stop offset='87%25' stop-color='black' stop-opacity='0.3'/><stop offset='100%25' stop-color='black' stop-opacity='0'/></linearGradient><linearGradient id='sf' gradientUnits='userSpaceOnUse' x1='140' y1='0' x2='300' y2='0'><stop offset='0' stop-color='black' stop-opacity='0.85'/><stop offset='1' stop-color='black' stop-opacity='0'/></linearGradient></defs><rect width='300' height='820' fill='url(%23g)'/><path d='M150,95 C190,80 220,115 245,100 C265,88 280,110 292,95' fill='none' stroke='url(%23sf)' stroke-width='1.6'/><path d='M145,382 C185,402 210,367 240,387 C262,400 278,377 290,394' fill='none' stroke='url(%23sf)' stroke-width='1.4'/><path d='M148,600 C188,585 215,618 242,602 C264,590 280,612 293,598' fill='none' stroke='url(%23sf)' stroke-width='1.5'/></svg>");
+    mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='820'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='0'><stop offset='0%25' stop-color='black'/><stop offset='58%25' stop-color='black'/><stop offset='72%25' stop-color='black' stop-opacity='0.68'/><stop offset='87%25' stop-color='black' stop-opacity='0.3'/><stop offset='100%25' stop-color='black' stop-opacity='0'/></linearGradient><linearGradient id='sf' gradientUnits='userSpaceOnUse' x1='140' y1='0' x2='300' y2='0'><stop offset='0' stop-color='black' stop-opacity='0.85'/><stop offset='1' stop-color='black' stop-opacity='0'/></linearGradient></defs><rect width='300' height='820' fill='url(%23g)'/><path d='M150,95 C190,80 220,115 245,100 C265,88 280,110 292,95' fill='none' stroke='url(%23sf)' stroke-width='1.6'/><path d='M145,382 C185,402 210,367 240,387 C262,400 278,377 290,394' fill='none' stroke='url(%23sf)' stroke-width='1.4'/><path d='M148,600 C188,585 215,618 242,602 C264,590 280,612 293,598' fill='none' stroke='url(%23sf)' stroke-width='1.5'/></svg>");
     -webkit-mask-repeat: repeat-y;
     mask-repeat: repeat-y;
     -webkit-mask-size: 100% 820px;
