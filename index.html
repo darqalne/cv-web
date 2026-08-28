@@ -83,10 +83,20 @@
     background-size: 375% auto;
     background-repeat: repeat-y;
     display: none;
-    /* Long, gradual multi-stop fade across the inner ~35% of the box — soft enough that the
-       dissolve into the page is never perceived as a line. */
-    -webkit-mask-image: linear-gradient(to right, #000 0%, #000 65%, rgba(0,0,0,0.75) 78%, rgba(0,0,0,0.4) 90%, transparent 100%);
-    mask-image: linear-gradient(to right, #000 0%, #000 65%, rgba(0,0,0,0.75) 78%, rgba(0,0,0,0.4) 90%, transparent 100%);
+    /* Long, gradual multi-stop fade across the inner ~35% of the box, PLUS three soft blurred
+       "bump" ellipses near the tail (baked into the same SVG, drawn after — so they lighten —
+       the base gradient) so a few contour patches naturally read a little further in than the
+       rest, instead of every point stopping at one perfectly straight line. Colour is kept as
+       constant black with only alpha varying throughout (matching the plain-gradient mask this
+       replaced), since that's the channel this mask is confirmed to key off. */
+    -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='820'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='0'><stop offset='0%25' stop-color='black'/><stop offset='65%25' stop-color='black'/><stop offset='78%25' stop-color='black' stop-opacity='0.75'/><stop offset='90%25' stop-color='black' stop-opacity='0.4'/><stop offset='100%25' stop-color='black' stop-opacity='0'/></linearGradient><filter id='b'><feGaussianBlur stdDeviation='16'/></filter></defs><rect width='300' height='820' fill='url(%23g)'/><ellipse cx='262' cy='140' rx='48' ry='85' fill='black' fill-opacity='0.55' filter='url(%23b)'/><ellipse cx='255' cy='420' rx='42' ry='75' fill='black' fill-opacity='0.4' filter='url(%23b)'/><ellipse cx='266' cy='640' rx='46' ry='80' fill='black' fill-opacity='0.5' filter='url(%23b)'/></svg>");
+    mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='820'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='0'><stop offset='0%25' stop-color='black'/><stop offset='65%25' stop-color='black'/><stop offset='78%25' stop-color='black' stop-opacity='0.75'/><stop offset='90%25' stop-color='black' stop-opacity='0.4'/><stop offset='100%25' stop-color='black' stop-opacity='0'/></linearGradient><filter id='b'><feGaussianBlur stdDeviation='16'/></filter></defs><rect width='300' height='820' fill='url(%23g)'/><ellipse cx='262' cy='140' rx='48' ry='85' fill='black' fill-opacity='0.55' filter='url(%23b)'/><ellipse cx='255' cy='420' rx='42' ry='75' fill='black' fill-opacity='0.4' filter='url(%23b)'/><ellipse cx='266' cy='640' rx='46' ry='80' fill='black' fill-opacity='0.5' filter='url(%23b)'/></svg>");
+    -webkit-mask-repeat: repeat-y;
+    mask-repeat: repeat-y;
+    -webkit-mask-size: 100% 820px;
+    mask-size: 100% 820px;
+    -webkit-mask-position: top left;
+    mask-position: top left;
   }
   .topo-edge-left {
     left: 0;
