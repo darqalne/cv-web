@@ -77,16 +77,16 @@
     z-index: 1;
     pointer-events: none;
     mix-blend-mode: multiply;
-    opacity: 0.36;
+    opacity: 0.55;
     background-image: url('docs/izohips-edge.webp');
     background-size: 100% auto;
     background-repeat: repeat-y;
     display: none;
-    /* Eased fade, not a hard hold-then-cut: full strength only right at the outer/screen
-       edge, already well softened by the midpoint, and fully gone before the inner edge
-       ever nears the content column — so it never reads as "reaching toward" the page center. */
-    -webkit-mask-image: linear-gradient(to right, #000 0%, rgba(0,0,0,0.85) 10%, rgba(0,0,0,0.32) 45%, transparent 75%);
-    mask-image: linear-gradient(to right, #000 0%, rgba(0,0,0,0.85) 10%, rgba(0,0,0,0.32) 45%, transparent 75%);
+    /* Full strength (clearly visible, ~70% of this 10vw box = ~7% of page width) holds all
+       the way out to 70%, then eases out over the remaining stretch so it still dissolves
+       into the page rather than ending on a hard clipped edge. */
+    -webkit-mask-image: linear-gradient(to right, #000 0%, #000 70%, rgba(0,0,0,0.45) 85%, transparent 100%);
+    mask-image: linear-gradient(to right, #000 0%, #000 70%, rgba(0,0,0,0.45) 85%, transparent 100%);
   }
   .topo-edge-left {
     left: 0;
@@ -97,7 +97,7 @@
     background-position: top right;
     transform: scaleX(-1);
   }
-  @media (min-width: 1250px) {
+  @media (min-width: 1100px) {
     .topo-edge { display: block; }
   }
 
