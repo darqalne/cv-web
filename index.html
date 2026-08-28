@@ -58,16 +58,17 @@
   }
   .float-anim { animation: float-y 6s ease-in-out infinite; }
 
-  /* Topographic contour-line margins — hand-picked isohypse artwork (docs/izohips-left.png,
-     docs/izohips-right.png; source: docs/izohips_layout.html) filling the empty gutters
-     outside the max-w-6xl content column on wide viewports. position:absolute with no
-     positioned ancestor + top:0;bottom:0 spans the full scrollable document height (not just
-     the viewport), so the art scrolls past with the page instead of staying pinned. It's a
-     finite drawing, so it tiles down that height (background-size:100% auto keeps the tile's
-     width locked to the panel and its aspect ratio intact, repeat-y stacks copies) rather than
-     being stretched to fit, which is what caused the earlier "squeezed" look. The inner edge
-     is a mask fade, never a hard clipped rectangle, so the art dissolves into the page instead
-     of ending in a straight cut line. */
+  /* Topographic contour-line margins — a single relief-texture image (docs/izohips-edge.webp),
+     mirrored on the right side, filling the empty gutters outside the max-w-6xl content
+     column on wide viewports. position:absolute with no positioned ancestor + top:0;bottom:0
+     spans the full scrollable document height (not just the viewport), so the art scrolls
+     past with the page instead of staying pinned. It's a finite image, so it tiles down that
+     height (background-size:100% auto keeps the tile's width locked to the panel and its
+     aspect ratio intact, repeat-y stacks copies) rather than being stretched to fit, which is
+     what caused the earlier "squeezed" look. The inner edge (toward the content) is a mask
+     fade, never a hard clipped rectangle, so the art dissolves into the page — and stays behind
+     the content/scroll-built emblem (z-[1], same layer as the emblem backdrop) instead of
+     covering it. */
   .topo-edge {
     position: absolute;
     top: 0;
@@ -77,23 +78,23 @@
     pointer-events: none;
     mix-blend-mode: multiply;
     opacity: 0.22;
+    background-image: url('docs/izohips-edge.webp');
     background-size: 100% auto;
     background-repeat: repeat-y;
     display: none;
   }
   .topo-edge-left {
     left: 0;
-    background-image: url('docs/izohips-left.png');
     background-position: top left;
     -webkit-mask-image: linear-gradient(to right, #000 0%, #000 20%, transparent 100%);
     mask-image: linear-gradient(to right, #000 0%, #000 20%, transparent 100%);
   }
   .topo-edge-right {
     right: 0;
-    background-image: url('docs/izohips-right.png');
     background-position: top right;
-    -webkit-mask-image: linear-gradient(to left, #000 0%, #000 20%, transparent 100%);
-    mask-image: linear-gradient(to left, #000 0%, #000 20%, transparent 100%);
+    transform: scaleX(-1);
+    -webkit-mask-image: linear-gradient(to right, #000 0%, #000 20%, transparent 100%);
+    mask-image: linear-gradient(to right, #000 0%, #000 20%, transparent 100%);
   }
   @media (min-width: 1250px) {
     .topo-edge { display: block; }
@@ -400,7 +401,7 @@
   </div>
 </div>
 
-<!-- Topographic contour margins — static isohypse artwork, see docs/izohips_layout.html -->
+<!-- Topographic contour margins — static relief artwork, docs/izohips-edge.webp (right side mirrored via CSS transform) -->
 <div class="topo-edge topo-edge-left" aria-hidden="true"></div>
 <div class="topo-edge topo-edge-right" aria-hidden="true"></div>
 
