@@ -79,14 +79,14 @@
     mix-blend-mode: multiply;
     opacity: 0.55;
     background-image: url('docs/izohips-edge.webp');
-    background-size: 100% auto;
+    background-size: 250% auto;
     background-repeat: repeat-y;
     display: none;
-    /* Full strength (clearly visible, ~70% of this 10vw box = ~7% of page width) holds all
-       the way out to 70%, then eases out over the remaining stretch so it still dissolves
-       into the page rather than ending on a hard clipped edge. */
-    -webkit-mask-image: linear-gradient(to right, #000 0%, #000 70%, rgba(0,0,0,0.45) 85%, transparent 100%);
-    mask-image: linear-gradient(to right, #000 0%, #000 70%, rgba(0,0,0,0.45) 85%, transparent 100%);
+    /* Holds fully solid across 90% of the box, then eases out only in the last 10% — a short,
+       gradual multi-stop fade (not one sharp cutoff) so the inner edge dissolves smoothly
+       instead of reading as a hard line. */
+    -webkit-mask-image: linear-gradient(to right, #000 0%, #000 90%, rgba(0,0,0,0.6) 94%, rgba(0,0,0,0.25) 97%, transparent 100%);
+    mask-image: linear-gradient(to right, #000 0%, #000 90%, rgba(0,0,0,0.6) 94%, rgba(0,0,0,0.25) 97%, transparent 100%);
   }
   .topo-edge-left {
     left: 0;
