@@ -1127,12 +1127,17 @@
       document.querySelectorAll('[data-lang-label]').forEach((b) => { b.textContent = window.__lang === 'en' ? 'EN' : 'TR'; });
       document.dispatchEvent(new CustomEvent('langchange'));
     }
+    // Exposed so initCleanRouting (below) can re-render text after it changes window.__lang
+    // itself (landing on a language-specific URL slug like /about), and so it can re-sync
+    // the URL to the matching slug right after a manual toggle-button click.
+    window.__applyLang = apply;
 
     document.querySelectorAll('[data-lang-toggle]').forEach((btn) => {
       btn.addEventListener('click', () => {
         window.__lang = window.__lang === 'en' ? 'tr' : 'en';
         localStorage.setItem(STORAGE_KEY, window.__lang);
         apply();
+        if (window.__onLangSynced) window.__onLangSynced();
       });
     });
     apply();
@@ -1345,18 +1350,50 @@
   // this same index.html by the Vercel rewrite in vercel.json; the section is then found
   // from location.pathname below.
   (function initCleanRouting() {
-    const SECTION_IDS = ['hakkimda', 'cv', 'deneyim', 'projeler', 'ilgi', 'referanslar', 'iletisim'];
-    const pathForId = (id) => (id === 'top' ? '/' : '/' + id);
+    // Each section has a Turkish slug and an English slug (identical for "cv", which reads
+    // fine in both languages). Landing on either one also sets the site's language to match,
+    // and toggling the language while on a section rewrites the URL to that language's slug.
+    const SLUGS = {
+      hakkimda: { tr: 'hakkimda', en: 'about' },
+      cv: { tr: 'cv', en: 'cv' },
+      deneyim: { tr: 'deneyim', en: 'experience' },
+      projeler: { tr: 'projeler', en: 'projects' },
+      ilgi: { tr: 'ilgi', en: 'interests' },
+      referanslar: { tr: 'referanslar', en: 'references' },
+      iletisim: { tr: 'iletisim', en: 'contact' },
+    };
+    const SECTION_IDS = Object.keys(SLUGS);
+    let currentId = 'top';
+
+    const slugFor = (id) => (SLUGS[id] ? SLUGS[id][window.__lang] || SLUGS[id].tr : id);
+    const pathForId = (id) => (id === 'top' ? '/' : '/' + slugFor(id));
     const scrollToId = (id, behavior) => {
       const el = document.getElementById(id);
       if (el) el.scrollIntoView({ behavior: behavior || 'smooth', block: 'start' });
     };
+    function resolvePath(pathname) {
+      const slug = pathname.replace(/^\//, '');
+      if (!slug) return { id: 'top', lang: null };
+      for (const [id, pair] of Object.entries(SLUGS)) {
+        if (pair.tr === pair.en && slug === pair.tr) return { id, lang: null };
+        if (slug === pair.tr) return { id, lang: 'tr' };
+        if (slug === pair.en) return { id, lang: 'en' };
+      }
+      return { id: null, lang: null };
+    }
+    function syncLangFromUrl(lang) {
+      if (!lang || lang === window.__lang) return;
+      window.__lang = lang;
+      localStorage.setItem('site-lang', lang);
+      if (window.__applyLang) window.__applyLang();
+    }
 
     document.querySelectorAll('a[href^="#"]').forEach((link) => {
       const id = link.getAttribute('href').slice(1);
       if (id !== 'top' && !SECTION_IDS.includes(id)) return;
       link.addEventListener('click', (e) => {
         e.preventDefault();
+        currentId = id;
         scrollToId(id);
         const path = pathForId(id);
         if (location.pathname !== path) history.pushState({ id }, '', path);
@@ -1364,14 +1401,25 @@
     });
 
     window.addEventListener('popstate', () => {
-      const id = location.pathname.replace(/^\//, '') || 'top';
-      scrollToId(id, 'auto');
+      const { id, lang } = resolvePath(location.pathname);
+      currentId = id || 'top';
+      syncLangFromUrl(lang);
+      scrollToId(currentId, 'auto');
     });
 
-    const initialId = location.pathname.replace(/^\//, '');
-    if (SECTION_IDS.includes(initialId)) {
-      window.addEventListener('load', () => scrollToId(initialId, 'auto'));
+    const initial = resolvePath(location.pathname);
+    if (initial.id) {
+      currentId = initial.id;
+      syncLangFromUrl(initial.lang);
+      window.addEventListener('load', () => scrollToId(initial.id, 'auto'));
     }
+
+    // Called by the language toggle (see initI18n) right after it flips window.__lang.
+    window.__onLangSynced = () => {
+      if (currentId === 'top') return;
+      const path = pathForId(currentId);
+      if (location.pathname !== path) history.replaceState({ id: currentId }, '', path);
+    };
   })();
 
   // Active nav link on scroll
