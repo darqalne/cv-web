@@ -427,7 +427,7 @@
         <a href="#deneyim" class="nav-link relative flex items-center gap-1.5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet/70 rounded-sm px-1"><span class="nav-dot w-1 h-1 rounded-full bg-violet opacity-0 scale-0 transition-all"></span><span data-en="Experience">Deneyim</span></a>
         <a href="#projeler" class="nav-link relative flex items-center gap-1.5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet/70 rounded-sm px-1"><span class="nav-dot w-1 h-1 rounded-full bg-violet opacity-0 scale-0 transition-all"></span><span data-en="Projects">Projeler</span></a>
         <a href="#iletisim" class="btn-glow text-sm font-medium bg-violet text-cream px-4 py-2 rounded-full hover:bg-violetdeep transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet/70 focus-visible:ring-offset-2 focus-visible:ring-offset-cream"><span data-en="Contact">İletişim</span></a>
-        <button type="button" data-lang-toggle aria-label="Switch language" class="text-xs font-semibold uppercase tracking-wider text-ink/50 hover:text-ink transition-colors border border-ink/15 hover:border-ink/30 rounded-full w-9 h-9 flex items-center justify-center shrink-0"><span data-lang-label>EN</span></button>
+        <button type="button" data-lang-toggle aria-label="Switch language" class="text-xs font-semibold uppercase tracking-wider text-ink/50 hover:text-ink transition-colors border border-ink/15 hover:border-ink/30 rounded-full w-9 h-9 flex items-center justify-center shrink-0"><span data-lang-label>TR</span></button>
       </nav>
     </div>
 
@@ -436,7 +436,7 @@
         <span class="signature text-xl text-ink">Ahmet Kağan Türkmen</span>
         <svg class="signature-swash -mt-0.5 w-20 h-2 text-violet/55" viewBox="0 0 150 10" fill="none" aria-hidden="true"><path d="M2 6c17-5 30 3 48-1s28-6 45-1 33 4 53-2" stroke-width="1.3" stroke-linecap="round"/></svg>
       </a>
-      <button type="button" data-lang-toggle aria-label="Switch language" class="absolute right-12 text-xs font-semibold uppercase tracking-wider text-ink/50 border border-ink/15 rounded-full w-8 h-8 flex items-center justify-center"><span data-lang-label>EN</span></button>
+      <button type="button" data-lang-toggle aria-label="Switch language" class="absolute right-12 text-xs font-semibold uppercase tracking-wider text-ink/50 border border-ink/15 rounded-full w-8 h-8 flex items-center justify-center"><span data-lang-label>TR</span></button>
       <button id="menu-btn" aria-label="Menüyü aç" aria-expanded="false" aria-controls="mobile-menu" class="absolute right-0 text-ink p-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet/70 rounded-sm">
         <svg id="menu-icon-open" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5" /></svg>
         <svg id="menu-icon-close" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
@@ -1124,7 +1124,7 @@
       textEls.forEach((el) => { el.innerHTML = window.__t(el.dataset.tr, el.dataset.en); });
       placeholderEls.forEach((el) => { el.setAttribute('placeholder', window.__t(el.dataset.trPlaceholder, el.dataset.enPlaceholder)); });
       document.documentElement.lang = window.__lang;
-      document.querySelectorAll('[data-lang-label]').forEach((b) => { b.textContent = window.__lang === 'en' ? 'TR' : 'EN'; });
+      document.querySelectorAll('[data-lang-label]').forEach((b) => { b.textContent = window.__lang === 'en' ? 'EN' : 'TR'; });
       document.dispatchEvent(new CustomEvent('langchange'));
     }
 
