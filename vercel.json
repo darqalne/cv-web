@@ -5,6 +5,18 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "rewrites": [
-    { "source": "/:section(hakkimda|about|cv|deneyim|experience|projeler|projects|ilgi|interests|referanslar|references|iletisim|contact)", "destination": "/index.html" }
+    { "source": "/hakkimda", "destination": "/index.html" },
+    { "source": "/about", "destination": "/index.html" },
+    { "source": "/cv", "destination": "/index.html" },
+    { "source": "/deneyim", "destination": "/index.html" },
+    { "source": "/experience", "destination": "/index.html" },
+    { "source": "/projeler", "destination": "/index.html" },
+    { "source": "/projects", "destination": "/index.html" },
+    { "source": "/ilgi", "destination": "/index.html" },
+    { "source": "/interests", "destination": "/index.html" },
+    { "source": "/referanslar", "destination": "/index.html" },
+    { "source": "/references", "destination": "/index.html" },
+    { "source": "/iletisim", "destination": "/index.html" },
+    { "source": "/contact", "destination": "/index.html" }
   ]
 }
