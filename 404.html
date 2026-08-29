@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>Ahmet Kağan Türkmen</title>
+<script>
+  // Vercel serves this file automatically for any path that doesn't match a real
+  // file or a vercel.json rewrite — a static-hosting convention that needs no config
+  // (unlike rewrites, which weren't taking effect for this project). It stashes the
+  // path the visitor actually asked for (e.g. /hakkimda or /about) and bounces to the
+  // real app at "/", which reads it back out and restores that same clean URL — see
+  // the sessionStorage.getItem('redirect_path') check in index.html's initCleanRouting.
+  sessionStorage.setItem('redirect_path', location.pathname);
+  location.replace('/');
+</script>
+</head>
+<body></body>
+</html>

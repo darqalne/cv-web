@@ -1407,10 +1407,23 @@
       scrollToId(currentId, 'auto');
     });
 
-    const initial = resolvePath(location.pathname);
+    // 404.html stashes the path a visitor actually landed on (Vercel serves it for any
+    // unrecognized path) and bounces here to "/" — read that back out once, restore the
+    // clean URL in the address bar via replaceState, and treat it exactly like a direct
+    // visit to that path would have been if the rewrite had matched.
+    let redirectedPath = null;
+    try {
+      redirectedPath = sessionStorage.getItem('redirect_path');
+      if (redirectedPath) sessionStorage.removeItem('redirect_path');
+    } catch (e) { /* sessionStorage unavailable (e.g. privacy mode) — fall through */ }
+
+    const initial = resolvePath(redirectedPath || location.pathname);
     if (initial.id) {
       currentId = initial.id;
       syncLangFromUrl(initial.lang);
+      if (redirectedPath && redirectedPath !== location.pathname) {
+        history.replaceState({ id: initial.id }, '', redirectedPath);
+      }
       window.addEventListener('load', () => scrollToId(initial.id, 'auto'));
     }
 
