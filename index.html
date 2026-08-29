@@ -58,10 +58,12 @@
   }
   .float-anim { animation: float-y 6s ease-in-out infinite; }
 
-  /* Topographic contour-line margins — a single relief-texture image (docs/izohips-edge.webp,
-     white-balanced so its paper tone multiplies away to nothing and only the shadow/contour
-     lines actually darken the page), mirrored on the right side. Each side is 13vw wide,
-     leaving the middle for content. position:absolute with no positioned ancestor +
+  /* Topographic contour-line margins — off-center crops of docs/topography_map_high_res_upscaled.jpg
+     (left side crop taken left-of-centre, right side crop taken right-of-centre, so the middle
+     of the source map is never used), white-balanced so their paper tone multiplies away to
+     nothing and only the shadow/contour lines actually darken the page. The right crop is
+     mirrored via CSS transform (same as before) purely to reuse the same mask geometry. Each
+     side is 13vw wide, leaving the middle for content. position:absolute with no positioned ancestor +
      top:0;bottom:0 spans the full scrollable document height (not just the viewport), so the
      art scrolls past with the page instead of staying pinned. It's a finite image, so it tiles
      down that height (background-size locks the tile's width as a multiple of the panel and
@@ -79,7 +81,6 @@
     pointer-events: none;
     mix-blend-mode: multiply;
     opacity: 0.55;
-    background-image: url('docs/izohips-edge.webp');
     background-size: 375% auto;
     background-repeat: repeat-y;
     display: none;
@@ -100,10 +101,12 @@
   }
   .topo-edge-left {
     left: 0;
+    background-image: url('docs/izohips-edge-left.webp');
     background-position: top left;
   }
   .topo-edge-right {
     right: 0;
+    background-image: url('docs/izohips-edge-right.webp');
     background-position: top right;
     transform: scaleX(-1);
   }
