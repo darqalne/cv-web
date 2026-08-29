@@ -80,24 +80,17 @@
     z-index: 1;
     pointer-events: none;
     mix-blend-mode: multiply;
-    opacity: 0.55;
+    opacity: 0.38;
     background-size: 236.25% auto;
     background-repeat: repeat-y;
     display: none;
-    /* Long, gradual multi-stop fade across the inner ~35% of the box, PLUS three soft blurred
-       "bump" ellipses near the tail (baked into the same SVG, drawn after — so they lighten —
-       the base gradient) so a few contour patches naturally read a little further in than the
-       rest, instead of every point stopping at one perfectly straight line. Colour is kept as
-       constant black with only alpha varying throughout (matching the plain-gradient mask this
-       replaced), since that's the channel this mask is confirmed to key off. */
-    -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='820'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='0'><stop offset='0%25' stop-color='black'/><stop offset='45%25' stop-color='black'/><stop offset='50%25' stop-color='black' stop-opacity='0.98'/><stop offset='55%25' stop-color='black' stop-opacity='0.93'/><stop offset='60%25' stop-color='black' stop-opacity='0.85'/><stop offset='65%25' stop-color='black' stop-opacity='0.72'/><stop offset='70%25' stop-color='black' stop-opacity='0.58'/><stop offset='75%25' stop-color='black' stop-opacity='0.44'/><stop offset='80%25' stop-color='black' stop-opacity='0.31'/><stop offset='85%25' stop-color='black' stop-opacity='0.19'/><stop offset='90%25' stop-color='black' stop-opacity='0.1'/><stop offset='95%25' stop-color='black' stop-opacity='0.03'/><stop offset='100%25' stop-color='black' stop-opacity='0'/></linearGradient><filter id='b'><feGaussianBlur stdDeviation='30'/></filter></defs><rect width='300' height='820' fill='url(%23g)'/><ellipse cx='262' cy='140' rx='52' ry='90' fill='black' fill-opacity='0.55' filter='url(%23b)'/><ellipse cx='254' cy='420' rx='46' ry='80' fill='black' fill-opacity='0.4' filter='url(%23b)'/><ellipse cx='266' cy='640' rx='50' ry='85' fill='black' fill-opacity='0.5' filter='url(%23b)'/></svg>");
-    mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='820'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='0'><stop offset='0%25' stop-color='black'/><stop offset='45%25' stop-color='black'/><stop offset='50%25' stop-color='black' stop-opacity='0.98'/><stop offset='55%25' stop-color='black' stop-opacity='0.93'/><stop offset='60%25' stop-color='black' stop-opacity='0.85'/><stop offset='65%25' stop-color='black' stop-opacity='0.72'/><stop offset='70%25' stop-color='black' stop-opacity='0.58'/><stop offset='75%25' stop-color='black' stop-opacity='0.44'/><stop offset='80%25' stop-color='black' stop-opacity='0.31'/><stop offset='85%25' stop-color='black' stop-opacity='0.19'/><stop offset='90%25' stop-color='black' stop-opacity='0.1'/><stop offset='95%25' stop-color='black' stop-opacity='0.03'/><stop offset='100%25' stop-color='black' stop-opacity='0'/></linearGradient><filter id='b'><feGaussianBlur stdDeviation='30'/></filter></defs><rect width='300' height='820' fill='url(%23g)'/><ellipse cx='262' cy='140' rx='52' ry='90' fill='black' fill-opacity='0.55' filter='url(%23b)'/><ellipse cx='254' cy='420' rx='46' ry='80' fill='black' fill-opacity='0.4' filter='url(%23b)'/><ellipse cx='266' cy='640' rx='50' ry='85' fill='black' fill-opacity='0.5' filter='url(%23b)'/></svg>");
-    -webkit-mask-repeat: repeat-y;
-    mask-repeat: repeat-y;
-    -webkit-mask-size: 100% 820px;
-    mask-size: 100% 820px;
-    -webkit-mask-position: top left;
-    mask-position: top left;
+    /* Plain smoothstep fade (zero slope at both ends) starting early, at 20% of the box, and
+       running all the way to the inner edge — simpler and softer than earlier attempts at
+       "natural" irregular bumps, which read as fussy rather than smooth. Colour is kept as
+       constant black with only alpha varying throughout, since that's the channel this mask
+       is confirmed to key off. */
+    -webkit-mask-image: linear-gradient(to right, #000 0%, #000 20%, rgba(0,0,0,0.97) 28%, rgba(0,0,0,0.9) 36%, rgba(0,0,0,0.78) 44%, rgba(0,0,0,0.65) 52%, rgba(0,0,0,0.5) 60%, rgba(0,0,0,0.35) 68%, rgba(0,0,0,0.22) 76%, rgba(0,0,0,0.1) 84%, rgba(0,0,0,0.03) 92%, transparent 100%);
+    mask-image: linear-gradient(to right, #000 0%, #000 20%, rgba(0,0,0,0.97) 28%, rgba(0,0,0,0.9) 36%, rgba(0,0,0,0.78) 44%, rgba(0,0,0,0.65) 52%, rgba(0,0,0,0.5) 60%, rgba(0,0,0,0.35) 68%, rgba(0,0,0,0.22) 76%, rgba(0,0,0,0.1) 84%, rgba(0,0,0,0.03) 92%, transparent 100%);
   }
   .topo-edge-left {
     left: 0;
